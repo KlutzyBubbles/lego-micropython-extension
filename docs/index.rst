@@ -8,25 +8,20 @@ LEGO® MINDSTORMS® EV3 robots. You'll learn to do so in two steps:
   your EV3 Brick by collecting and installing the required tools. You'll also learn
   how to turn the EV3 Brick on and off and to navigate the menu on the screen.
 
-- :doc:`Creating and running programs <startrun>`: Next, you'll learn how to
-  create a program and download it to the EV3 Brick. You'll also learn how to
-  start that program from your computer or from the EV3 Brick.
-
 After you've run the first demo program, you'll be ready to try out the example
 programs and start inventing your own programs.
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Table of Contents
+   :hidden:
 
 .. toctree::
-    :maxdepth: 1
-    :caption: Table of Contents
-    :hidden:
+   :maxdepth: 1
+   :caption: Getting Started
+   :hidden:
 
-.. toctree::
-    :maxdepth: 1
-    :caption: Getting Started
-    :hidden:
-
-    startinstall
+   startinstall
 
 .. toctree::
    :maxdepth: 1
@@ -34,6 +29,7 @@ programs and start inventing your own programs.
    :hidden:
 
    ev3devices
+   parameters
 
 .. toctree::
    :maxdepth: 1
@@ -46,8 +42,3 @@ programs and start inventing your own programs.
    :maxdepth: 1
    :caption: Demo Programs
    :hidden:
-
-
-.. glossary::
-   depth
-      Depth of the gear in the link to get the angle for, defaults to None

@@ -1,0 +1,1044 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ev3devices_ext – EV3 Motor and Sensor Extension Classes &mdash; Lego MP Extension 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Installation" href="startinstall.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Lego MP Extension
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="startinstall.html">Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Pybricks Modules</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ev3devices_ext</span></code> – EV3 Motor and Sensor Extension Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motor">Motor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sensors">Sensors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#touch-sensor">Touch Sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#color-sensor">Color Sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#infrared-sensor-and-beacon">Infrared Sensor and Beacon</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ultrasonic-sensor">Ultrasonic Sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gyroscopic-sensor">Gyroscopic Sensor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Lego MP Extension</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">ev3devices_ext</span></code> – EV3 Motor and Sensor Extension Classes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ev3devices.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-ev3devices_ext">
+<span id="ev3devices-ext-ev3-motor-and-sensor-extension-classes"></span><h1><a class="reference internal" href="#module-ev3devices_ext" title="ev3devices_ext"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ev3devices_ext</span></code></a> – EV3 Motor and Sensor Extension Classes<a class="headerlink" href="#module-ev3devices_ext" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motor">
+<h2>Motor<a class="headerlink" href="#motor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="ev3devices_ext.MotorExt">
+<em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">MotorExt</code><span class="sig-paren">(</span><em>port</em>, <em>direction=&lt;Direction.CLOCKWISE: 0&gt;</em>, <em>gears=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension class for the Motor device with useful functions
+mainly relating to speed and specific gear targeting</p>
+<p>Further documentation for the Motor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.Motor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.Motor</a>’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>Port</em>) – Port to which motor is connected</p></li>
+<li><p><strong>direction</strong> (<em>Direction</em><em>, </em><em>optional</em>) – Direction of the positive motor speed, defaults to Direction.CLOCKWISE</p></li>
+<li><p><strong>gears</strong> (<em>list</em><em>, </em><em>tuple</em><em>, </em><em>optional</em>) – List of gears linked to the motor, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Motor Information</strong></p>
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_angle">
+<code class="descname">output_angle</code><span class="sig-paren">(</span><em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the rotation angle of the motor or its linked gears</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to get the angle for, defaults to None</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Motor angle</p>
+</dd>
+<dt class="field-odd">Rttype</dt>
+<dd class="field-odd"><p>int, float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_speed">
+<code class="descname">output_speed</code><span class="sig-paren">(</span><em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the speed (angular velocity) of the motor or its linked gears</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to get the angle for, defaults to None</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Rotational speed in deg/s</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int, float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Run</strong></p>
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_run">
+<code class="descname">output_run</code><span class="sig-paren">(</span><em>speed</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed (angular velocity)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_percent_run">
+<code class="descname">output_percent_run</code><span class="sig-paren">(</span><em>speed</em>, <em>rpm=240</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed (percentage)</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the Motor, defaults to 240</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.percent_run">
+<code class="descname">percent_run</code><span class="sig-paren">(</span><em>speed</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor running at a constant speed (percentage)</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the Motor, defaults to 240</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Run Time</strong></p>
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_run_time">
+<code class="descname">output_run_time</code><span class="sig-paren">(</span><em>speed</em>, <em>time</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_run_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed for a
+specified amount of time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
+<li><p><strong>time</strong> (<em>int</em>) – Duration (milliseconds) of the maneuver</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake or hold after coming to a stand still, defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_percent_run_time">
+<code class="descname">output_percent_run_time</code><span class="sig-paren">(</span><em>speed</em>, <em>time</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed (percentage) for a specified amount of time</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
+<li><p><strong>time</strong> (<em>int</em>) – Duration (milliseconds) of the maneuver</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.percent_run_time">
+<code class="descname">percent_run_time</code><span class="sig-paren">(</span><em>speed</em>, <em>time</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor running at a constant speed (percentage) for a speicified amount of time</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
+<li><p><strong>time</strong> (<em>int</em>) – Duration (milliseconds) of the maneuver</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Run Angle</strong></p>
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_run_angle">
+<code class="descname">output_run_angle</code><span class="sig-paren">(</span><em>speed</em>, <em>rotation_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_run_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed for a speicified amount of degrees</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
+<li><p><strong>rotation_angle</strong> (<em>int</em>) – Angle (degrees) by which the Motor should run</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_percent_run_angle">
+<code class="descname">output_percent_run_angle</code><span class="sig-paren">(</span><em>speed</em>, <em>rotation_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed (percentage) for a speicified amount of degrees</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
+<li><p><strong>rotation_angle</strong> (<em>int</em>) – Angle (degrees) by which the Motor should run</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a tandstill, defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.percent_run_angle">
+<code class="descname">percent_run_angle</code><span class="sig-paren">(</span><em>speed</em>, <em>rotation_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor running at a constant speed (percentage) for a speicified amount of degrees</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
+<li><p><strong>rotation_angle</strong> (<em>int</em>) – Angle (degrees) by which the Motor should run</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Run Target</strong></p>
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_run_target">
+<code class="descname">output_run_target</code><span class="sig-paren">(</span><em>speed</em>, <em>target_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_run_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed towards a speicified target degree</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
+<li><p><strong>target_angle</strong> (<em>int</em>) – Target angle that the Motor should rotate to, regardless of its current angle</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_percent_run_target">
+<code class="descname">output_percent_run_target</code><span class="sig-paren">(</span><em>speed</em>, <em>target_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed (percentage) towards a speicified target degree</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
+<li><p><strong>target_angle</strong> (<em>int</em>) – Target angle that the Motor should rotate to, regardless of its current angle</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.percent_run_target">
+<code class="descname">percent_run_target</code><span class="sig-paren">(</span><em>speed</em>, <em>target_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor running at a constant speed (percentage) towards a speicified target degree</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
+<li><p><strong>target_angle</strong> (<em>int</em>) – Target angle that the Motor should rotate to, regardless of its current angle</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Advanced methods for motors with rotation sensors</p>
+<p><strong>Run Until Stalled</strong></p>
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_run_until_stalled">
+<code class="descname">output_run_until_stalled</code><span class="sig-paren">(</span><em>speed</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>duty_limit=100</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_run_until_stalled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed until it stalls</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>duty_limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Relative torque limit, defaults to 100</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.output_percent_run_until_stalled">
+<code class="descname">output_percent_run_until_stalled</code><span class="sig-paren">(</span><em>speed</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>duty_limit=100</em>, <em>rpm=240</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_until_stalled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed (percentage) until it stalls</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>duty_limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Relative torque limit, defaults to 100</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.MotorExt.percent_run_until_stalled">
+<code class="descname">percent_run_until_stalled</code><span class="sig-paren">(</span><em>speed</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>duty_limit=100</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_until_stalled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor running at a constant speed (percentage) until it stalls</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>duty_limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Relative torque limit, defaults to 100</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="sensors">
+<h2>Sensors<a class="headerlink" href="#sensors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="touch-sensor">
+<h3>Touch Sensor<a class="headerlink" href="#touch-sensor" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="ev3devices_ext.TouchSensorExt">
+<em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">TouchSensorExt</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.TouchSensorExt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension class for the TouchSensor with helpful
+methods mainly relating to wait functions</p>
+<p>Further documentation for the TouchSensor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.TouchSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.TouchSensor</a>’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to which the sensor is connected</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="ev3devices_ext.TouchSensorExt.wait_until_bumped">
+<code class="descname">wait_until_bumped</code><span class="sig-paren">(</span><em>wait_timer=500</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.TouchSensorExt.wait_until_bumped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait until the TouchSensor is bumped</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>wait_timer</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Time to wait (milliseconds) to consider a press and release a bump, defaults to 500</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.TouchSensorExt.wait_until_pressed">
+<code class="descname">wait_until_pressed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.TouchSensorExt.wait_until_pressed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait until the TouchSensor is pressed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.TouchSensorExt.wait_until_released">
+<code class="descname">wait_until_released</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.TouchSensorExt.wait_until_released" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait until the TouchSensor is released</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="color-sensor">
+<h3>Color Sensor<a class="headerlink" href="#color-sensor" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="ev3devices_ext.ColorSensorExt">
+<em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">ColorSensorExt</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension class for the ColorSensor with helpful methods</p>
+<p>Further documentation for the ColorSensor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.ColorSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.ColorSensor</a>’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to which the sensor is connected</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="ev3devices_ext.ColorSensorExt.equals">
+<code class="descname">equals</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt.equals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the color equals a Color or a set of Colors</p>
+<p>See ColorExt for color values
+list, tuple or dict must have values of instance Color</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>Color</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>list</em><em>, </em><em>tuple</em><em>, </em><em>dict</em>) – Color to compare sensor color to</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not the color is equal or is contained</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.ColorSensorExt.hex">
+<code class="descname">hex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt.hex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure the color of a surface in the form of a hex string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Color measured in hex value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.ColorSensorExt.hsv">
+<code class="descname">hsv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt.hsv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure the color of a surface in the form of Hue, Saturation and Value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Color measured in the form (h, s, v)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.ColorSensorExt.hue">
+<code class="descname">hue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt.hue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure the hue of a surface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Hue of the surface calculated from ColorSensor.rgb()</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int, float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.ColorSensorExt.rgb_255">
+<code class="descname">rgb_255</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt.rgb_255" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure the reflection of a surface using a red, green, and then a blue light.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Reflection for red, green, and blue light, each ranging from 0.0 (no reflection) to 255.0 (high reflection).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.ColorSensorExt.wait_until_ambient">
+<code class="descname">wait_until_ambient</code><span class="sig-paren">(</span><em>operator</em>, <em>ambient</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt.wait_until_ambient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the ambient color matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>ambient</strong> (<em>int</em><em>, </em><em>float</em>) – Ambient value to calculate against (ColorSensor.ambient &lt;OP&gt; ambient)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.ColorSensorExt.wait_until_color_is">
+<code class="descname">wait_until_color_is</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt.wait_until_color_is" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the color equals a Color or a set of Colors</p>
+<p>See ColorExt for color values
+list, tuple or dict must have values of instance Color</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>Color</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>list</em><em>, </em><em>tuple</em><em>, </em><em>dict</em>) – Color to compare sensor color to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.ColorSensorExt.wait_until_color_not">
+<code class="descname">wait_until_color_not</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt.wait_until_color_not" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the color does not equal a Color or a set of Colors</p>
+<p>See ColorExt for color values
+list, tuple or dict must have values of instance Color</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>Color</em><em>, </em><em>int</em><em>, </em><em>float</em><em>, </em><em>list</em><em>, </em><em>tuple</em><em>, </em><em>dict</em>) – Color to compare sensor color to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.ColorSensorExt.wait_until_reflection">
+<code class="descname">wait_until_reflection</code><span class="sig-paren">(</span><em>operator</em>, <em>reflection</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt.wait_until_reflection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the reflection color matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>reflection</strong> (<em>int</em><em>, </em><em>float</em>) – Reflection value to calculate against (ColorSensor.reflection &lt;OP&gt; reflection)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="infrared-sensor-and-beacon">
+<h3>Infrared Sensor and Beacon<a class="headerlink" href="#infrared-sensor-and-beacon" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="ev3devices_ext.InfraredSensorExt">
+<em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">InfraredSensorExt</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension class for the InfraredSensor with helpful methods</p>
+<p>Further documentation for the ColorSensor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.InfraredSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.InfraredSensor</a>’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to which the sensor is connected</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="ev3devices_ext.InfraredSensorExt.beacon_angle">
+<code class="descname">beacon_angle</code><span class="sig-paren">(</span><em>channel</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.beacon_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure the relative angle to the remote and the infrared sensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>channel</strong> (<em>int</em>) – Channel number of the remote</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative angle to the remote and the infrared sensor</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.InfraredSensorExt.beacon_distance">
+<code class="descname">beacon_distance</code><span class="sig-paren">(</span><em>channel</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.beacon_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure the relative distance between the remote and the infrared sensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>channel</strong> (<em>int</em>) – Channel number of the remote</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative distance between the remote and the infrared sensor</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int, float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.InfraredSensorExt.wait_until_beacon_angle">
+<code class="descname">wait_until_beacon_angle</code><span class="sig-paren">(</span><em>operator</em>, <em>beacon_angle</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_beacon_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the beacon angle matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>beacon_angle</strong> (<em>int</em><em>, </em><em>float</em>) – Beacon angle value to calculate against (InfraredSensorExt.beacon_angle &lt;OP&gt; beacon_angle)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.InfraredSensorExt.wait_until_beacon_distance">
+<code class="descname">wait_until_beacon_distance</code><span class="sig-paren">(</span><em>operator</em>, <em>beacon_distance</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_beacon_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the beacon distance matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>beacon_distance</strong> (<em>int</em><em>, </em><em>float</em>) – Beacon distance value to calculate against (InfraredSensorExt.beacon_distance &lt;OP&gt; beacon_distance)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.InfraredSensorExt.wait_until_button_bumped">
+<code class="descname">wait_until_button_bumped</code><span class="sig-paren">(</span><em>button</em>, <em>channel</em>, <em>wait_timer=500</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_button_bumped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until a specified button has been bumped</p>
+<p>‘’NOTE: using a list, tuple or dict for buttons will make this function act the same as wait_until_button_pressed if all of the buttons listed are pressed at once’‘</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>button</strong> (<em>Button</em><em>, </em><em>list</em><em>, </em><em>tuple</em><em>, </em><em>dict</em>) – Button or Buttons to wait for</p></li>
+<li><p><strong>channel</strong> (<em>int</em>) – Channel number of the remote</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.InfraredSensorExt.wait_until_button_pressed">
+<code class="descname">wait_until_button_pressed</code><span class="sig-paren">(</span><em>button</em>, <em>channel</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_button_pressed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until a specified button has been pressed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>button</strong> (<em>Button</em><em>, </em><em>list</em><em>, </em><em>tuple</em><em>, </em><em>dict</em>) – Button or Buttons to wait for</p></li>
+<li><p><strong>channel</strong> (<em>int</em>) – Channel number of the remote</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.InfraredSensorExt.wait_until_button_released">
+<code class="descname">wait_until_button_released</code><span class="sig-paren">(</span><em>button</em>, <em>channel</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_button_released" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until a specified button has been released</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>button</strong> (<em>Button</em><em>, </em><em>list</em><em>, </em><em>tuple</em><em>, </em><em>dict</em>) – Button or Buttons to wait for</p></li>
+<li><p><strong>channel</strong> (<em>int</em>) – Channel number of the remote</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.InfraredSensorExt.wait_until_distance">
+<code class="descname">wait_until_distance</code><span class="sig-paren">(</span><em>operator</em>, <em>distance</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the distance matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>distance</strong> (<em>int</em><em>, </em><em>float</em>) – Distance value to calculate against (InfraredSensor.distance &lt;OP&gt; distance)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="ultrasonic-sensor">
+<h3>Ultrasonic Sensor<a class="headerlink" href="#ultrasonic-sensor" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="ev3devices_ext.UltrasonicSensorExt">
+<em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">UltrasonicSensorExt</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.UltrasonicSensorExt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension class for the UltrasonicSensor with helpful methods</p>
+<p>Further documentation for the ColorSensor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.UltrasonicSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.UltrasonicSensor</a>’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to which the sensor is connected</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="ev3devices_ext.UltrasonicSensorExt.wait_until_distance">
+<code class="descname">wait_until_distance</code><span class="sig-paren">(</span><em>operator</em>, <em>distance</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.UltrasonicSensorExt.wait_until_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the distance matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>distance</strong> (<em>int</em><em>, </em><em>float</em>) – Distance value to calculate against (UltrasonicSensor.distance &lt;OP&gt; distance)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.UltrasonicSensorExt.wait_until_not_presence">
+<code class="descname">wait_until_not_presence</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.UltrasonicSensorExt.wait_until_not_presence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the UltrasonicSensor doesn’t detect the presence of another UltrasonicSensor</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.UltrasonicSensorExt.wait_until_presence">
+<code class="descname">wait_until_presence</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.UltrasonicSensorExt.wait_until_presence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the UltrasonicSensor detects the presence of another UltrasonicSensor</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="gyroscopic-sensor">
+<h3>Gyroscopic Sensor<a class="headerlink" href="#gyroscopic-sensor" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="ev3devices_ext.GyroSensorExt">
+<em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">GyroSensorExt</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension class for the GyroSensor with helpful methods</p>
+<p>Further documentation for the ColorSensor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.GyroSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.GyroSensor</a>’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to which the sensor is connected</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="ev3devices_ext.GyroSensorExt.angle_rotations">
+<code class="descname">angle_rotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt.angle_rotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the accumulated angle of the sensor in rotations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Rotation angle</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int, float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.GyroSensorExt.bearing">
+<code class="descname">bearing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt.bearing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the current bearing of the sensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Current bearing of the sensor from 0 to 360</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.GyroSensorExt.reset_angle_bearing">
+<code class="descname">reset_angle_bearing</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt.reset_angle_bearing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the rotation angle of the sensor to the bearing of an angle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> (<em>int</em>) – Value to which the beaing should be calculated from</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.GyroSensorExt.speed_rotations">
+<code class="descname">speed_rotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt.speed_rotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the speed (angular velocity) of the sensor in rotations a second</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Sensor angular velocity in rotations a second</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int, float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.GyroSensorExt.wait_until_angle">
+<code class="descname">wait_until_angle</code><span class="sig-paren">(</span><em>operator</em>, <em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt.wait_until_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the angle matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>angle</strong> (<em>int</em><em>, </em><em>float</em>) – Angle value to calculate against (GyroSensor.angle &lt;OP&gt; angle)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.GyroSensorExt.wait_until_angle_rotations">
+<code class="descname">wait_until_angle_rotations</code><span class="sig-paren">(</span><em>operator</em>, <em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt.wait_until_angle_rotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the angle in rotations matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>angle</strong> (<em>int</em><em>, </em><em>float</em>) – Angle rotations value to calculate against (GyroSensorExt.angle_rotations &lt;OP&gt; angle)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.GyroSensorExt.wait_until_bearing">
+<code class="descname">wait_until_bearing</code><span class="sig-paren">(</span><em>operator</em>, <em>bearing</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt.wait_until_bearing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the bearing matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>bearing</strong> (<em>int</em><em>, </em><em>float</em>) – Bearing value to calculate against (GyroSensorExt.bearing &lt;OP&gt; bearing)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.GyroSensorExt.wait_until_speed">
+<code class="descname">wait_until_speed</code><span class="sig-paren">(</span><em>operator</em>, <em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt.wait_until_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the speed matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed value to calculate against (GyroSensor.speed &lt;OP&gt; speed)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ev3devices_ext.GyroSensorExt.wait_until_speed_rotations">
+<code class="descname">wait_until_speed_rotations</code><span class="sig-paren">(</span><em>operator</em>, <em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt.wait_until_speed_rotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits until the speed in rotations matches certain conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed rotations value to calculate against (GyroSensorExt.speed_rotations &lt;OP&gt; speed)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="startinstall.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lee Tzilantonis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,10 +1,14 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 
 # C extensions
 *.so
+
+# Visual Studio Resources
+.vscode/
 
 # Distribution / packaging
 .Python
@@ -24,6 +28,9 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# Get PIP
+get-pip.py
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -66,6 +73,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/html.tar
 
 # PyBuilder
 target/

@@ -1,5 +1,5 @@
 import _thread
-import pybricks.ev3brick as brick
+from pybricks import ev3brick as brick
 
 class SpeakerExt():
 

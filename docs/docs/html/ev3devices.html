@@ -100,6 +100,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="parameters.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parameters_ext</span></code> – Parameter and Constant Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tools_ext</span></code> – Timing and Datalogging</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Engineering Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="signaltypes.html">Signals and Units</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contrib.html">Contibuting</a></li>
 </ul>
 
             
@@ -170,16 +179,20 @@
 <h2>Motor<a class="headerlink" href="#motor" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="ev3devices_ext.MotorExt">
-<em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">MotorExt</code><span class="sig-paren">(</span><em>port</em>, <em>direction=&lt;Direction.CLOCKWISE: 0&gt;</em>, <em>gears=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">MotorExt</code><span class="sig-paren">(</span><em>port</em>, <em>direction=&lt;Direction.CLOCKWISE: 0&gt;</em>, <em>gears=None</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extension class for the Motor device with useful functions
 mainly relating to speed and specific gear targeting</p>
-<p>Further documentation for the Motor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.Motor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.Motor</a>’</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<p>Further documentation for the Motor class can be found
+‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.Motor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.Motor</a>’</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>port</strong> (<em>Port</em>) – Port to which motor is connected</p></li>
 <li><p><strong>direction</strong> (<em>Direction</em><em>, </em><em>optional</em>) – Direction of the positive motor speed, defaults to Direction.CLOCKWISE</p></li>
 <li><p><strong>gears</strong> (<em>list</em><em>, </em><em>tuple</em><em>, </em><em>optional</em>) – List of gears linked to the motor, defaults to None</p></li>
+<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the Motor, defaults to 240</p></li>
 </ul>
 </dd>
 </dl>
@@ -235,15 +248,12 @@ mainly relating to speed and specific gear targeting</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.output_percent_run">
-<code class="descname">output_percent_run</code><span class="sig-paren">(</span><em>speed</em>, <em>rpm=240</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">output_percent_run</code><span class="sig-paren">(</span><em>speed</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Keep the motor or linked gears running at a constant speed (percentage)</p>
-<p>Medium Motor    - 240 RPM
-Large Motor     - 160 RPM</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
-<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the Motor, defaults to 240</p></li>
 <li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
 </ul>
 </dd>
@@ -252,16 +262,11 @@ Large Motor     - 160 RPM</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.percent_run">
-<code class="descname">percent_run</code><span class="sig-paren">(</span><em>speed</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">percent_run</code><span class="sig-paren">(</span><em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Keep the motor running at a constant speed (percentage)</p>
-<p>Medium Motor    - 240 RPM
-Large Motor     - 160 RPM</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor</p></li>
-<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the Motor, defaults to 240</p></li>
-</ul>
+<dd class="field-odd"><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor</p>
 </dd>
 </dl>
 </dd></dl>
@@ -277,8 +282,10 @@ specified amount of time</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
 <li><p><strong>time</strong> (<em>int</em>) – Duration (milliseconds) of the maneuver</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake or hold after coming to a stand still, defaults to Stop.COAST</p></li>
-<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake or hold after coming to a stand still,
+defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of
+the program, defaults to True</p></li>
 <li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
 </ul>
 </dd>
@@ -287,18 +294,18 @@ specified amount of time</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.output_percent_run_time">
-<code class="descname">output_percent_run_time</code><span class="sig-paren">(</span><em>speed</em>, <em>time</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keep the motor or linked gears running at a constant speed (percentage) for a specified amount of time</p>
-<p>Medium Motor    - 240 RPM
-Large Motor     - 160 RPM1</p>
+<code class="descname">output_percent_run_time</code><span class="sig-paren">(</span><em>speed</em>, <em>time</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed (percentage)
+for a specified amount of time</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
 <li><p><strong>time</strong> (<em>int</em>) – Duration (milliseconds) of the maneuver</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake or hold after coming to a standstill, defaults to Stop.COAST</p></li>
-<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
-<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake or hold after coming to a standstill,
+defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of
+the program, defaults to True</p></li>
 <li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
 </ul>
 </dd>
@@ -307,18 +314,17 @@ Large Motor     - 160 RPM1</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.percent_run_time">
-<code class="descname">percent_run_time</code><span class="sig-paren">(</span><em>speed</em>, <em>time</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_time" title="Permalink to this definition">¶</a></dt>
+<code class="descname">percent_run_time</code><span class="sig-paren">(</span><em>speed</em>, <em>time</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Keep the motor running at a constant speed (percentage) for a speicified amount of time</p>
-<p>Medium Motor    - 240 RPM
-Large Motor     - 160 RPM</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
 <li><p><strong>time</strong> (<em>int</em>) – Duration (milliseconds) of the maneuver</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
-<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
-<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill,
+defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of
+the program, defaults to True</p></li>
 </ul>
 </dd>
 </dl>
@@ -328,14 +334,17 @@ Large Motor     - 160 RPM</p>
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.output_run_angle">
 <code class="descname">output_run_angle</code><span class="sig-paren">(</span><em>speed</em>, <em>rotation_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_run_angle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keep the motor or linked gears running at a constant speed for a speicified amount of degrees</p>
+<dd><p>Keep the motor or linked gears running at a constant speed for a
+speicified amount of degrees</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
 <li><p><strong>rotation_angle</strong> (<em>int</em>) – Angle (degrees) by which the Motor should run</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
-<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill,
+defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of
+the program, defaults to True</p></li>
 <li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
 </ul>
 </dd>
@@ -344,18 +353,18 @@ Large Motor     - 160 RPM</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.output_percent_run_angle">
-<code class="descname">output_percent_run_angle</code><span class="sig-paren">(</span><em>speed</em>, <em>rotation_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_angle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keep the motor or linked gears running at a constant speed (percentage) for a speicified amount of degrees</p>
-<p>Medium Motor    - 240 RPM
-Large Motor     - 160 RPM</p>
+<code class="descname">output_percent_run_angle</code><span class="sig-paren">(</span><em>speed</em>, <em>rotation_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed (percentage) for a
+speicified amount of degrees</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
 <li><p><strong>rotation_angle</strong> (<em>int</em>) – Angle (degrees) by which the Motor should run</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a tandstill, defaults to Stop.COAST</p></li>
-<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
-<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a tandstill,
+defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of
+the program, defaults to True</p></li>
 <li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
 </ul>
 </dd>
@@ -364,18 +373,18 @@ Large Motor     - 160 RPM</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.percent_run_angle">
-<code class="descname">percent_run_angle</code><span class="sig-paren">(</span><em>speed</em>, <em>rotation_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_angle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keep the motor running at a constant speed (percentage) for a speicified amount of degrees</p>
-<p>Medium Motor    - 240 RPM
-Large Motor     - 160 RPM</p>
+<code class="descname">percent_run_angle</code><span class="sig-paren">(</span><em>speed</em>, <em>rotation_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor running at a constant speed (percentage) for a
+speicified amount of degrees</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
 <li><p><strong>rotation_angle</strong> (<em>int</em>) – Angle (degrees) by which the Motor should run</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
-<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
-<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill,
+defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of
+the program, defaults to True</p></li>
 </ul>
 </dd>
 </dl>
@@ -385,14 +394,18 @@ Large Motor     - 160 RPM</p>
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.output_run_target">
 <code class="descname">output_run_target</code><span class="sig-paren">(</span><em>speed</em>, <em>target_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_run_target" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keep the motor or linked gears running at a constant speed towards a speicified target degree</p>
+<dd><p>Keep the motor or linked gears running at a constant speed towards a
+speicified target degree</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
-<li><p><strong>target_angle</strong> (<em>int</em>) – Target angle that the Motor should rotate to, regardless of its current angle</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
-<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
+<li><p><strong>target_angle</strong> (<em>int</em>) – Target angle that the Motor should rotate to,
+regardless of its current angle</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill,
+defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of
+the program, defaults to True</p></li>
 <li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
 </ul>
 </dd>
@@ -401,18 +414,19 @@ Large Motor     - 160 RPM</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.output_percent_run_target">
-<code class="descname">output_percent_run_target</code><span class="sig-paren">(</span><em>speed</em>, <em>target_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_target" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keep the motor or linked gears running at a constant speed (percentage) towards a speicified target degree</p>
-<p>Medium Motor    - 240 RPM
-Large Motor     - 160 RPM</p>
+<code class="descname">output_percent_run_target</code><span class="sig-paren">(</span><em>speed</em>, <em>target_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor or linked gears running at a constant speed (percentage) towards a
+speicified target degree</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
-<li><p><strong>target_angle</strong> (<em>int</em>) – Target angle that the Motor should rotate to, regardless of its current angle</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
-<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
-<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+<li><p><strong>target_angle</strong> (<em>int</em>) – Target angle that the Motor should rotate to,
+regardless of its current angle</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill,
+defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of
+the program, defaults to True</p></li>
 <li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
 </ul>
 </dd>
@@ -421,18 +435,19 @@ Large Motor     - 160 RPM</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.percent_run_target">
-<code class="descname">percent_run_target</code><span class="sig-paren">(</span><em>speed</em>, <em>target_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_target" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keep the motor running at a constant speed (percentage) towards a speicified target degree</p>
-<p>Medium Motor    - 240 RPM
-Large Motor     - 160 RPM</p>
+<code class="descname">percent_run_target</code><span class="sig-paren">(</span><em>speed</em>, <em>target_angle</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>wait=True</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep the motor running at a constant speed (percentage) towards a
+speicified target degree</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
-<li><p><strong>target_angle</strong> (<em>int</em>) – Target angle that the Motor should rotate to, regardless of its current angle</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
-<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of the program, defaults to True</p></li>
-<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
+<li><p><strong>target_angle</strong> (<em>int</em>) – Target angle that the Motor should rotate to,
+regardless of its current angle</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill,
+defaults to Stop.COAST</p></li>
+<li><p><strong>wait</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to wait for the maneuver to complete before continuing with the rest of
+the program, defaults to True</p></li>
 </ul>
 </dd>
 </dl>
@@ -448,7 +463,8 @@ Large Motor     - 160 RPM</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill,
+defaults to Stop.COAST</p></li>
 <li><p><strong>duty_limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Relative torque limit, defaults to 100</p></li>
 <li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
 </ul>
@@ -458,17 +474,15 @@ Large Motor     - 160 RPM</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.output_percent_run_until_stalled">
-<code class="descname">output_percent_run_until_stalled</code><span class="sig-paren">(</span><em>speed</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>duty_limit=100</em>, <em>rpm=240</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_until_stalled" title="Permalink to this definition">¶</a></dt>
+<code class="descname">output_percent_run_until_stalled</code><span class="sig-paren">(</span><em>speed</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>duty_limit=100</em>, <em>depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.output_percent_run_until_stalled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Keep the motor or linked gears running at a constant speed (percentage) until it stalls</p>
-<p>Medium Motor    - 240 RPM
-Large Motor     - 160 RPM</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill,
+defaults to Stop.COAST</p></li>
 <li><p><strong>duty_limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Relative torque limit, defaults to 100</p></li>
-<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
 <li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – Depth of the gear in the link to set the speed for, defaults to None</p></li>
 </ul>
 </dd>
@@ -477,17 +491,15 @@ Large Motor     - 160 RPM</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.MotorExt.percent_run_until_stalled">
-<code class="descname">percent_run_until_stalled</code><span class="sig-paren">(</span><em>speed</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>duty_limit=100</em>, <em>rpm=240</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_until_stalled" title="Permalink to this definition">¶</a></dt>
+<code class="descname">percent_run_until_stalled</code><span class="sig-paren">(</span><em>speed</em>, <em>stop_type=&lt;Stop.COAST: 0&gt;</em>, <em>duty_limit=100</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.MotorExt.percent_run_until_stalled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Keep the motor running at a constant speed (percentage) until it stalls</p>
-<p>Medium Motor    - 240 RPM
-Large Motor     - 160 RPM</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed of the Motor or Gear (percentage)</p></li>
-<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill, defaults to Stop.COAST</p></li>
+<li><p><strong>stop_type</strong> (<em>Stop</em><em>, </em><em>optional</em>) – Whether to coast, brake, or hold after coming to a standstill,
+defaults to Stop.COAST</p></li>
 <li><p><strong>duty_limit</strong> (<em>int</em><em>, </em><em>optional</em>) – Relative torque limit, defaults to 100</p></li>
-<li><p><strong>rpm</strong> (<em>int</em><em>, </em><em>optional</em>) – RPM of the motor, defaults to 240</p></li>
 </ul>
 </dd>
 </dl>
@@ -505,7 +517,8 @@ Large Motor     - 160 RPM</p>
 <em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">TouchSensorExt</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.TouchSensorExt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extension class for the TouchSensor with helpful
 methods mainly relating to wait functions</p>
-<p>Further documentation for the TouchSensor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.TouchSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.TouchSensor</a>’</p>
+<p>Further documentation for the TouchSensor class can be found
+‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.TouchSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.TouchSensor</a>’</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to which the sensor is connected</p>
@@ -517,7 +530,8 @@ methods mainly relating to wait functions</p>
 <dd><p>Wait until the TouchSensor is bumped</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>wait_timer</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Time to wait (milliseconds) to consider a press and release a bump, defaults to 500</p>
+<dd class="field-odd"><p><strong>wait_timer</strong> (<em>int</em><em>, </em><em>float</em><em>, </em><em>optional</em>) – Time to wait (milliseconds) to consider a press and release a bump,
+defaults to 500</p>
 </dd>
 </dl>
 </dd></dl>
@@ -543,7 +557,8 @@ methods mainly relating to wait functions</p>
 <dt id="ev3devices_ext.ColorSensorExt">
 <em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">ColorSensorExt</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.ColorSensorExt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extension class for the ColorSensor with helpful methods</p>
-<p>Further documentation for the ColorSensor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.ColorSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.ColorSensor</a>’</p>
+<p>Further documentation for the ColorSensor class can be found
+‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.ColorSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.ColorSensor</a>’</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to which the sensor is connected</p>
@@ -616,7 +631,8 @@ list, tuple or dict must have values of instance Color</p>
 <dd><p>Measure the reflection of a surface using a red, green, and then a blue light.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Reflection for red, green, and blue light, each ranging from 0.0 (no reflection) to 255.0 (high reflection).</p>
+<dd class="field-odd"><p>Reflection for red, green, and blue light, each ranging from
+0.0 (no reflection) to 255.0 (high reflection).</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
@@ -672,7 +688,8 @@ list, tuple or dict must have values of instance Color</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
-<li><p><strong>reflection</strong> (<em>int</em><em>, </em><em>float</em>) – Reflection value to calculate against (ColorSensor.reflection &lt;OP&gt; reflection)</p></li>
+<li><p><strong>reflection</strong> (<em>int</em><em>, </em><em>float</em>) – Reflection value to calculate against
+(ColorSensor.reflection &lt;OP&gt; reflection)</p></li>
 </ul>
 </dd>
 </dl>
@@ -687,7 +704,8 @@ list, tuple or dict must have values of instance Color</p>
 <dt id="ev3devices_ext.InfraredSensorExt">
 <em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">InfraredSensorExt</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extension class for the InfraredSensor with helpful methods</p>
-<p>Further documentation for the InfraredSensor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.InfraredSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.InfraredSensor</a>’</p>
+<p>Further documentation for the InfraredSensor class can be found
+‘<a class="reference external" href="http://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.InfraredSensor">http://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.InfraredSensor</a>’</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to which the sensor is connected</p>
@@ -729,13 +747,15 @@ list, tuple or dict must have values of instance Color</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.InfraredSensorExt.wait_until_beacon_angle">
-<code class="descname">wait_until_beacon_angle</code><span class="sig-paren">(</span><em>operator</em>, <em>beacon_angle</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_beacon_angle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">wait_until_beacon_angle</code><span class="sig-paren">(</span><em>operator</em>, <em>beacon_angle</em>, <em>channel</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_beacon_angle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Waits until the beacon angle matches certain conditions</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
-<li><p><strong>beacon_angle</strong> (<em>int</em><em>, </em><em>float</em>) – Beacon angle value to calculate against (InfraredSensorExt.beacon_angle &lt;OP&gt; beacon_angle)</p></li>
+<li><p><strong>beacon_angle</strong> (<em>int</em><em>, </em><em>float</em>) – Beacon angle value to calculate against
+(InfraredSensorExt.beacon_angle &lt;OP&gt; beacon_angle)</p></li>
+<li><p><strong>channel</strong> (<em>int</em>) – Channel number of the remote</p></li>
 </ul>
 </dd>
 </dl>
@@ -743,13 +763,15 @@ list, tuple or dict must have values of instance Color</p>
 
 <dl class="method">
 <dt id="ev3devices_ext.InfraredSensorExt.wait_until_beacon_distance">
-<code class="descname">wait_until_beacon_distance</code><span class="sig-paren">(</span><em>operator</em>, <em>beacon_distance</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_beacon_distance" title="Permalink to this definition">¶</a></dt>
+<code class="descname">wait_until_beacon_distance</code><span class="sig-paren">(</span><em>operator</em>, <em>beacon_distance</em>, <em>channel</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_beacon_distance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Waits until the beacon distance matches certain conditions</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
-<li><p><strong>beacon_distance</strong> (<em>int</em><em>, </em><em>float</em>) – Beacon distance value to calculate against (InfraredSensorExt.beacon_distance &lt;OP&gt; beacon_distance)</p></li>
+<li><p><strong>beacon_distance</strong> (<em>int</em><em>, </em><em>float</em>) – Beacon distance value to calculate against
+(InfraredSensorExt.beacon_distance &lt;OP&gt; beacon_distance)</p></li>
+<li><p><strong>channel</strong> (<em>int</em>) – Channel number of the remote</p></li>
 </ul>
 </dd>
 </dl>
@@ -759,7 +781,8 @@ list, tuple or dict must have values of instance Color</p>
 <dt id="ev3devices_ext.InfraredSensorExt.wait_until_button_bumped">
 <code class="descname">wait_until_button_bumped</code><span class="sig-paren">(</span><em>button</em>, <em>channel</em>, <em>wait_timer=500</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.InfraredSensorExt.wait_until_button_bumped" title="Permalink to this definition">¶</a></dt>
 <dd><p>Waits until a specified button has been bumped</p>
-<p>‘’NOTE: using a list, tuple or dict for buttons will make this function act the same as wait_until_button_pressed if all of the buttons listed are pressed at once’‘</p>
+<p>‘’NOTE: using a list, tuple or dict for buttons will make this function act the same as
+wait_until_button_pressed if all of the buttons listed are pressed at once’‘</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -821,7 +844,8 @@ list, tuple or dict must have values of instance Color</p>
 <dt id="ev3devices_ext.UltrasonicSensorExt">
 <em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">UltrasonicSensorExt</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.UltrasonicSensorExt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extension class for the UltrasonicSensor with helpful methods</p>
-<p>Further documentation for the UltrasonicSensor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.UltrasonicSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.UltrasonicSensor</a>’</p>
+<p>Further documentation for the UltrasonicSensor class can be found
+‘klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.UltrasonicSensor’</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to which the sensor is connected</p>
@@ -835,7 +859,8 @@ list, tuple or dict must have values of instance Color</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
-<li><p><strong>distance</strong> (<em>int</em><em>, </em><em>float</em>) – Distance value to calculate against (UltrasonicSensor.distance &lt;OP&gt; distance)</p></li>
+<li><p><strong>distance</strong> (<em>int</em><em>, </em><em>float</em>) – Distance value to calculate against
+(UltrasonicSensor.distance &lt;OP&gt; distance)</p></li>
 </ul>
 </dd>
 </dl>
@@ -862,7 +887,8 @@ list, tuple or dict must have values of instance Color</p>
 <dt id="ev3devices_ext.GyroSensorExt">
 <em class="property">class </em><code class="descclassname">ev3devices_ext.</code><code class="descname">GyroSensorExt</code><span class="sig-paren">(</span><em>port</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3devices_ext.GyroSensorExt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extension class for the GyroSensor with helpful methods</p>
-<p>Further documentation for the GyroSensor class can be found ‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.GyroSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.GyroSensor</a>’</p>
+<p>Further documentation for the GyroSensor class can be found
+‘<a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.GyroSensor">https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.GyroSensor</a>’</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to which the sensor is connected</p>
@@ -943,7 +969,8 @@ list, tuple or dict must have values of instance Color</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
-<li><p><strong>angle</strong> (<em>int</em><em>, </em><em>float</em>) – Angle rotations value to calculate against (GyroSensorExt.angle_rotations &lt;OP&gt; angle)</p></li>
+<li><p><strong>angle</strong> (<em>int</em><em>, </em><em>float</em>) – Angle rotations value to calculate against
+(GyroSensorExt.angle_rotations &lt;OP&gt; angle)</p></li>
 </ul>
 </dd>
 </dl>
@@ -985,7 +1012,8 @@ list, tuple or dict must have values of instance Color</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>operator</strong> (<em>str</em>) – Operator to be used for the calculation (&gt;, &lt;, &lt;=, &gt;=, ==, !=)</p></li>
-<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed rotations value to calculate against (GyroSensorExt.speed_rotations &lt;OP&gt; speed)</p></li>
+<li><p><strong>speed</strong> (<em>int</em><em>, </em><em>float</em>) – Speed rotations value to calculate against
+(GyroSensorExt.speed_rotations &lt;OP&gt; speed)</p></li>
 </ul>
 </dd>
 </dl>

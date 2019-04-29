@@ -25,7 +25,6 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -98,6 +97,14 @@
 <li class="toctree-l1"><a class="reference internal" href="ev3devices.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ev3devices_ext</span></code> – EV3 Motor and Sensor Extension Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parameters.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parameters_ext</span></code> – Parameter and Constant Extensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tools_ext</span></code> – Timing and Datalogging</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Engineering Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="signaltypes.html">Signals and Units</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contrib.html">Contibuting</a></li>
 </ul>
 
             
@@ -209,7 +216,7 @@ although these are some added functionality</p>
 <h2>Sound<a class="headerlink" href="#sound" title="Permalink to this headline">¶</a></h2>
 <dl class="classmethod">
 <dt id="ev3brick_ext.sound.beep">
-<em class="property">classmethod </em><code class="descclassname">sound.</code><code class="descname">beep</code><span class="sig-paren">(</span><em>duration=100</em>, <em>volume=30</em>, <em>wait=False</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3brick_ext.sound.beep" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descclassname">sound.</code><code class="descname">beep</code><span class="sig-paren">(</span><em>frequency=500</em>, <em>duration=100</em>, <em>volume=30</em>, <em>wait=False</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3brick_ext.sound.beep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Play a beep/tone</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -225,7 +232,7 @@ although these are some added functionality</p>
 
 <dl class="classmethod">
 <dt id="ev3brick_ext.sound.beeps">
-<em class="property">classmethod </em><code class="descclassname">sound.</code><code class="descname">beeps</code><span class="sig-paren">(</span><em>wait=False</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3brick_ext.sound.beeps" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descclassname">sound.</code><code class="descname">beeps</code><span class="sig-paren">(</span><em>number</em>, <em>wait=False</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3brick_ext.sound.beeps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Play a number of default beeps with a brief pause in between</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -239,7 +246,7 @@ although these are some added functionality</p>
 
 <dl class="classmethod">
 <dt id="ev3brick_ext.sound.file">
-<em class="property">classmethod </em><code class="descclassname">sound.</code><code class="descname">file</code><span class="sig-paren">(</span><em>volume=100</em>, <em>wait=False</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3brick_ext.sound.file" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descclassname">sound.</code><code class="descname">file</code><span class="sig-paren">(</span><em>file_name</em>, <em>volume=100</em>, <em>wait=False</em><span class="sig-paren">)</span><a class="headerlink" href="#ev3brick_ext.sound.file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Play a sound file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

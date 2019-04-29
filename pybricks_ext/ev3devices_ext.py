@@ -2,7 +2,7 @@ from operator import eq, ge, gt, le, lt, ne
 
 from pybricks.ev3devices import (ColorSensor, GyroSensor, InfraredSensor,
                                  Motor, TouchSensor, UltrasonicSensor)
-from pybricks.parameters import Stop
+from pybricks.parameters import Stop, Direction
 from pybricks.tools import wait, StopWatch
 
 from parameters_ext import ColorExt
@@ -22,6 +22,9 @@ class MotorExt(Motor):
     Extension class for the Motor device with useful functions
     mainly relating to speed and specific gear targeting
 
+    Medium Motor    - 240 RPM
+    Large Motor     - 160 RPM
+
     Further documentation for the Motor class can be found
     'https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.Motor'
 
@@ -31,7 +34,18 @@ class MotorExt(Motor):
     :type direction: Direction, optional
     :param gears: List of gears linked to the motor, defaults to None
     :type gears: list, tuple, optional
+    :param rpm: RPM of the Motor, defaults to 240
+    :type rpm: int, optional
     """
+    
+    def __init__(self, port, direction=Direction.CLOCKWISE, gears=None, rpm=240):
+        """
+        Initiate the MotorExt Object
+        """
+        super().__init__(port, direction=direction, gears=gears)
+        self.rpm = 240
+        if isinstance(rpm, int):
+            self.rpm = abs(rpm)
 
     def output_angle(self, depth=None):
         """
@@ -69,35 +83,25 @@ class MotorExt(Motor):
             super(MotorExt, self).run(speed)
         super(MotorExt, self).run(speed / get_ratio(self.gears, depth=depth))
 
-    def output_percent_run(self, speed, rpm=240, depth=None):
+    def output_percent_run(self, speed, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage)
-
-        Medium Motor    - 240 RPM
-        Large Motor     - 160 RPM
 
         :param speed: Speed of the Motor or Gear
         :type speed: int, float
-        :param rpm: RPM of the Motor, defaults to 240
-        :type rpm: int, optional
         :param depth: Depth of the gear in the link to set the speed for, defaults to None
         :type depth: int, optional
         """
         if depth is None:
-            self.percent_run(speed, rpm=rpm)
-        super(MotorExt, self).run(speed_deg(speed, rpm=rpm) / get_ratio(self.gears, depth=depth))
+            self.percent_run(speed)
+        super(MotorExt, self).run(speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth))
 
-    def percent_run(self, speed, rpm=240):
+    def percent_run(self, speed):
         """Keep the motor running at a constant speed (percentage)
-
-        Medium Motor    - 240 RPM
-        Large Motor     - 160 RPM
 
         :param speed: Speed of the Motor
         :type speed: int, float
-        :param rpm: RPM of the Motor, defaults to 240
-        :type rpm: int, optional
         """
-        super(MotorExt, self).run(speed_deg(speed, rpm=rpm))
+        super(MotorExt, self).run(speed_deg(speed, rpm=self.rpm))
 
     def output_run_time(self, speed, time, stop_type=Stop.COAST, wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed for a
@@ -108,10 +112,10 @@ class MotorExt(Motor):
         :param time: Duration (milliseconds) of the maneuver
         :type time: int
         :param stop_type: Whether to coast, brake or hold after coming to a stand still,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-        the program, defaults to True
+                     the program, defaults to True
         :type wait: bool, optional
         :param depth: Depth of the gear in the link to set the speed for, defaults to None
         :type depth: int, optional
@@ -123,55 +127,44 @@ class MotorExt(Motor):
                                        stop_type=stop_type,
                                        wait=wait)
 
-    def output_percent_run_time(self, speed, time, stop_type=Stop.COAST, wait=True,
-                                rpm=240, depth=None):
+    def output_percent_run_time(self, speed, time, stop_type=Stop.COAST, wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage)
         for a specified amount of time
-
-        Medium Motor    - 240 RPM
-        Large Motor     - 160 RPM
 
         :param speed: Speed of the Motor or Gear (percentage)
         :type speed: int, float
         :param time: Duration (milliseconds) of the maneuver
         :type time: int
         :param stop_type: Whether to coast, brake or hold after coming to a standstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-        the program, defaults to True
+                     the program, defaults to True
         :type wait: bool, optional
-        :param rpm: RPM of the motor, defaults to 240
-        :type rpm: int, optional
         :param depth: Depth of the gear in the link to set the speed for, defaults to None
         :type depth: int, optional
         """
         if depth is None:
-            self.percent_run_time(speed, time, stop_type=stop_type, wait=wait, rpm=rpm)
+            self.percent_run_time(speed, time, stop_type=stop_type, wait=wait)
         super(MotorExt, self).run_time(
-            speed_deg(speed, rpm=rpm) / get_ratio(self.gears, depth=depth),
+            speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth),
             time, stop_type=stop_type, wait=wait)
 
-    def percent_run_time(self, speed, time, stop_type=Stop.COAST, wait=True, rpm=240):
+    def percent_run_time(self, speed, time, stop_type=Stop.COAST, wait=True):
         """Keep the motor running at a constant speed (percentage) for a speicified amount of time
-
-        Medium Motor    - 240 RPM
-        Large Motor     - 160 RPM
 
         :param speed: Speed of the Motor or Gear (percentage)
         :type speed: int, float
         :param time: Duration (milliseconds) of the maneuver
         :type time: int
         :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-        the program, defaults to True
+                     the program, defaults to True
         :type wait: bool, optional
-        :param rpm: RPM of the motor, defaults to 240
-        :type rpm: int, optional
         """
-        super(MotorExt, self).run_time(speed_deg(speed, rpm=rpm),
+        super(MotorExt, self).run_time(speed_deg(speed, rpm=self.rpm),
                                        time, stop_type=stop_type, wait=wait)
 
     def output_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST, wait=True, depth=None):
@@ -183,10 +176,10 @@ class MotorExt(Motor):
         :param rotation_angle: Angle (degrees) by which the Motor should run
         :type rotation_angle: int
         :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-        the program, defaults to True
+                     the program, defaults to True
         :type wait: bool, optional
         :param depth: Depth of the gear in the link to set the speed for, defaults to None
         :type depth: int, optional
@@ -200,55 +193,45 @@ class MotorExt(Motor):
                                         wait=wait)
 
     def output_percent_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST,
-                                 wait=True, rpm=240, depth=None):
+                                 wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage) for a
         speicified amount of degrees
-
-        Medium Motor    - 240 RPM
-        Large Motor     - 160 RPM
 
         :param speed: Speed of the Motor or Gear
         :type speed: int, float
         :param rotation_angle: Angle (degrees) by which the Motor should run
         :type rotation_angle: int
         :param stop_type: Whether to coast, brake, or hold after coming to a tandstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-        the program, defaults to True
+                     the program, defaults to True
         :type wait: bool, optional
-        :param rpm: RPM of the motor, defaults to 240
-        :type rpm: int, optional
         :param depth: Depth of the gear in the link to set the speed for, defaults to None
         :type depth: int, optional
         """
         if depth is None:
-            self.percent_run_angle(speed, rotation_angle, stop_type=stop_type, wait=wait, rpm=rpm)
+            self.percent_run_angle(speed, rotation_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(MotorExt, self).run_angle(speed_deg(speed, rpm=rpm) / ratio,
+        super(MotorExt, self).run_angle(speed_deg(speed, rpm=self.rpm) / ratio,
                                         rotation_angle / ratio, stop_type=stop_type, wait=wait)
 
-    def percent_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST, wait=True, rpm=240):
+    def percent_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST, wait=True):
         """Keep the motor running at a constant speed (percentage) for a
         speicified amount of degrees
-
-        Medium Motor    - 240 RPM
-        Large Motor     - 160 RPM
 
         :param speed: Speed of the Motor or Gear
         :type speed: int, float
         :param rotation_angle: Angle (degrees) by which the Motor should run
         :type rotation_angle: int
         :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-        the program, defaults to True
+                     the program, defaults to True
         :type wait: bool, optional
-        :param rpm: RPM of the motor, defaults to 240
-        :type rpm: int, optional
         """
-        super(MotorExt, self).run_angle(speed_deg(speed, rpm=rpm),
+        super(MotorExt, self).run_angle(speed_deg(speed, rpm=self.rpm),
                                         rotation_angle, stop_type=stop_type, wait=wait)
 
     def output_run_target(self, speed, target_angle, stop_type=Stop.COAST, wait=True, depth=None):
@@ -258,13 +241,13 @@ class MotorExt(Motor):
         :param speed: Speed of the Motor or Gear
         :type speed: int, float
         :param target_angle: Target angle that the Motor should rotate to,
-        regardless of its current angle
+                             regardless of its current angle
         :type target_angle: int
         :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-        the program, defaults to True
+                     the program, defaults to True
         :type wait: bool, optional
         :param depth: Depth of the gear in the link to set the speed for, defaults to None
         :type depth: int, optional
@@ -276,57 +259,47 @@ class MotorExt(Motor):
                                          stop_type=stop_type, wait=wait)
 
     def output_percent_run_target(self, speed, target_angle, stop_type=Stop.COAST,
-                                  wait=True, rpm=240, depth=None):
+                                  wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage) towards a
         speicified target degree
-
-        Medium Motor    - 240 RPM
-        Large Motor     - 160 RPM
 
         :param speed: Speed of the Motor or Gear (percentage)
         :type speed: int, float
         :param target_angle: Target angle that the Motor should rotate to,
-        regardless of its current angle
+                             regardless of its current angle
         :type target_angle: int
         :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-        the program, defaults to True
+                     the program, defaults to True
         :type wait: bool, optional
-        :param rpm: RPM of the motor, defaults to 240
-        :type rpm: int, optional
         :param depth: Depth of the gear in the link to set the speed for, defaults to None
         :type depth: int, optional
         """
         if depth is None:
-            self.percent_run_target(speed, target_angle, stop_type=stop_type, wait=wait, rpm=rpm)
+            self.percent_run_target(speed, target_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(MotorExt, self).run_target(speed_deg(speed, rpm=rpm) / ratio,
+        super(MotorExt, self).run_target(speed_deg(speed, rpm=self.rpm) / ratio,
                                          target_angle / ratio, stop_type=stop_type, wait=wait)
 
-    def percent_run_target(self, speed, target_angle, stop_type=Stop.COAST, wait=True, rpm=240):
+    def percent_run_target(self, speed, target_angle, stop_type=Stop.COAST, wait=True):
         """Keep the motor running at a constant speed (percentage) towards a
         speicified target degree
-
-        Medium Motor    - 240 RPM
-        Large Motor     - 160 RPM
 
         :param speed: Speed of the Motor or Gear (percentage)
         :type speed: int, float
         :param target_angle: Target angle that the Motor should rotate to,
-        regardless of its current angle
+                             regardless of its current angle
         :type target_angle: int
         :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-        the program, defaults to True
+                     the program, defaults to True
         :type wait: bool, optional
-        :param rpm: RPM of the motor, defaults to 240
-        :type rpm: int, optional
         """
-        super(MotorExt, self).run_target(speed_deg(speed, rpm=rpm), target_angle,
+        super(MotorExt, self).run_target(speed_deg(speed, rpm=self.rpm), target_angle,
                                          stop_type=stop_type, wait=wait)
 
     def output_run_until_stalled(self, speed, stop_type=Stop.COAST, duty_limit=100, depth=None):
@@ -335,7 +308,7 @@ class MotorExt(Motor):
         :param speed: Speed of the Motor or Gear
         :type speed: int, float
         :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param duty_limit: Relative torque limit, defaults to 100
         :type duty_limit: int, optional
@@ -349,48 +322,38 @@ class MotorExt(Motor):
                                                 stop_type=stop_type, duty_limit=duty_limit)
 
     def output_percent_run_until_stalled(self, speed, stop_type=Stop.COAST,
-                                         duty_limit=100, rpm=240, depth=None):
+                                         duty_limit=100, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage) until it stalls
-
-        Medium Motor    - 240 RPM
-        Large Motor     - 160 RPM
 
         :param speed: Speed of the Motor or Gear (percentage)
         :type speed: int, float
         :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param duty_limit: Relative torque limit, defaults to 100
         :type duty_limit: int, optional
-        :param rpm: RPM of the motor, defaults to 240
-        :type rpm: int, optional
         :param depth: Depth of the gear in the link to set the speed for, defaults to None
         :type depth: int, optional
         """
         if depth is None:
             self.percent_run_until_stalled(speed, stop_type=stop_type,
-                                           duty_limit=duty_limit, rpm=rpm)
+                                           duty_limit=duty_limit)
         super(MotorExt, self).run_until_stalled(
-            speed_deg(speed, rpm=rpm) * get_ratio(self.gears, depth=depth),
+            speed_deg(speed, rpm=self.rpm) * get_ratio(self.gears, depth=depth),
             stop_type=stop_type, duty_limit=duty_limit)
 
-    def percent_run_until_stalled(self, speed, stop_type=Stop.COAST, duty_limit=100, rpm=240):
+    def percent_run_until_stalled(self, speed, stop_type=Stop.COAST, duty_limit=100):
         """Keep the motor running at a constant speed (percentage) until it stalls
-
-        Medium Motor    - 240 RPM
-        Large Motor     - 160 RPM
 
         :param speed: Speed of the Motor or Gear (percentage)
         :type speed: int, float
         :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-        defaults to Stop.COAST
+                          defaults to Stop.COAST
         :type stop_type: Stop, optional
         :param duty_limit: Relative torque limit, defaults to 100
         :type duty_limit: int, optional
-        :param rpm: RPM of the motor, defaults to 240
-        :type rpm: int, optional
         """
-        super(MotorExt, self).run_until_stalled(speed_deg(speed, rpm=rpm),
+        super(MotorExt, self).run_until_stalled(speed_deg(speed, rpm=self.rpm),
                                                 stop_type=stop_type, duty_limit=duty_limit)
 
     def wait_until_motor_stop(self):
@@ -453,7 +416,7 @@ class TouchSensorExt(TouchSensor):
         """Wait until the TouchSensor is bumped
 
         :param wait_timer: Time to wait (milliseconds) to consider a press and release a bump,
-        defaults to 500
+                           defaults to 500
         :type wait_timer: int, float, optional
         """
         if not isinstance(wait_timer, (int, float)):
@@ -536,7 +499,7 @@ class ColorSensorExt(ColorSensor):
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
         :param reflection: Reflection value to calculate against
-        (ColorSensor.reflection <OP> reflection)
+                           (ColorSensor.reflection <OP> reflection)
         :type reflection: int, float
         """
         while not _operator_calc(super(ColorSensorExt, self).reflection(), reflection, operator):
@@ -547,7 +510,7 @@ class ColorSensorExt(ColorSensor):
         """Measure the reflection of a surface using a red, green, and then a blue light.
 
         :return: Reflection for red, green, and blue light, each ranging from
-        0.0 (no reflection) to 255.0 (high reflection).
+                 0.0 (no reflection) to 255.0 (high reflection).
         :rtype: tuple
         """
         rgb = super(ColorSensorExt, self).rgb()
@@ -644,7 +607,7 @@ class InfraredSensorExt(InfraredSensor):
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
         :param beacon_distance: Beacon distance value to calculate against
-        (InfraredSensorExt.beacon_distance <OP> beacon_distance)
+                                (InfraredSensorExt.beacon_distance <OP> beacon_distance)
         :type beacon_distance: int, float
         :param channel: Channel number of the remote
         :type channel: int
@@ -659,7 +622,7 @@ class InfraredSensorExt(InfraredSensor):
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
         :param beacon_angle: Beacon angle value to calculate against
-        (InfraredSensorExt.beacon_angle <OP> beacon_angle)
+                             (InfraredSensorExt.beacon_angle <OP> beacon_angle)
         :type beacon_angle: int, float
         :param channel: Channel number of the remote
         :type channel: int
@@ -748,7 +711,7 @@ class UltrasonicSensorExt(UltrasonicSensor):
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
         :param distance: Distance value to calculate against
-        (UltrasonicSensor.distance <OP> distance)
+                         (UltrasonicSensor.distance <OP> distance)
         :type distance: int, float
         """
         while not _operator_calc(super(UltrasonicSensorExt, self).distance(), distance, operator):
@@ -847,7 +810,7 @@ class GyroSensorExt(GyroSensor):
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
         :param speed: Speed rotations value to calculate against
-        (GyroSensorExt.speed_rotations <OP> speed)
+                      (GyroSensorExt.speed_rotations <OP> speed)
         :type speed: int, float
         """
         while not _operator_calc(self.speed_rotations(), speed, operator):
@@ -860,7 +823,7 @@ class GyroSensorExt(GyroSensor):
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
         :param angle: Angle rotations value to calculate against
-        (GyroSensorExt.angle_rotations <OP> angle)
+                      (GyroSensorExt.angle_rotations <OP> angle)
         :type angle: int, float
         """
         while not _operator_calc(self.angle_rotations(), angle, operator):

@@ -4,7 +4,7 @@ from pybricks import ev3brick as brick
 from pybricks.parameters import Color
 from pybricks.tools import wait
 
-from pybricks_ext.parameters_ext import ColorExt
+from parameters_ext import ColorExt
 
 flashing_lock = None
 

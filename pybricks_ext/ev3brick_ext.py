@@ -105,6 +105,9 @@ def light(color):
         flashing_lock = None
     brick.light(color)
 
+def buttons():
+    return brick.buttons()
+
 class SpeakerExt():
     """
     Extension class for the Speaker Object

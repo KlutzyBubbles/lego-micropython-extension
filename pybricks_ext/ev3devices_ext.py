@@ -1,6 +1,7 @@
 from operator import eq, ge, gt, le, lt, ne
 
-from pybricks.ev3devices import ColorSensor, GyroSensor, InfraredSensor, Motor, TouchSensor, UltrasonicSensor
+from pybricks.ev3devices import (ColorSensor, GyroSensor, InfraredSensor,
+                                 Motor, TouchSensor, UltrasonicSensor)
 from pybricks.parameters import Direction, Stop
 from pybricks.tools import wait
 

@@ -1,10 +1,11 @@
 from pybricks.parameters import Color
+from enum import Enum
 
-class ColorExt():
+class ColorExt(Enum):
     """
     Extension class for Color with utility methods
     """
-    
+
     BLACK = 1
     PURPLE = 9
     BLUE = 2
@@ -116,12 +117,12 @@ class ColorExt():
         }
         return switch.get(number, d=None)
 
-class DirectionExt():
+class DirectionExt(Enum):
 
     CLOCKWISE = 0
     ANTICLOCKWISE = 1
 
-class PortExt():
+class PortExt(Enum):
 
     A = 65
     B = 66
@@ -132,7 +133,7 @@ class PortExt():
     S3 = 51
     S4 = 52
 
-class SoundFileExt():
+class SoundFileExt(Enum):
 
     BRAVO = "/usr/share/sounds/ev3dev/communication/bravo.wav"
     LEGO = "/usr/share/sounds/ev3dev/communication/lego.wav"
@@ -241,7 +242,7 @@ class SoundFileExt():
     LEFT = "/usr/share/sounds/ev3dev/information/left.wav"
     SNEEZING = "/usr/share/sounds/ev3dev/expressions/sneezing.wav"
 
-class ImageFileExt():
+class ImageFileExt(Enum):
 
     TIRED_MIDDLE = "/usr/share/images/ev3dev/mono/eyes/tired_middle.png"
     FORWARD = "/usr/share/images/ev3dev/mono/information/forward.png"
@@ -283,7 +284,7 @@ class ImageFileExt():
     THUMBS_UP = "/usr/share/images/ev3dev/mono/information/thumbs_up.png"
     DOWN = "/usr/share/images/ev3dev/mono/eyes/down.png"
 
-class ButtonExt():
+class ButtonExt(Enum):
 
     UP = 256
     DOWN = 4
@@ -296,13 +297,13 @@ class ButtonExt():
     RIGHT_DOWN = 8
     BEACON = 256
 
-class StopExt():
+class StopExt(Enum):
 
     COAST = 0
     BRAKE = 1
     HOLD = 2
 
-class AlignExt():
+class AlignExt(Enum):
 
     BOTTOM_LEFT = 1
     TOP_LEFT = 7

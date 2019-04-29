@@ -8,7 +8,6 @@ from pybricks.tools import wait
 from parameters_ext import ColorExt
 from speed_util import get_ratio, speed_deg
 
-
 def _operator_calc(val_a, val_b, operator):
     operators = {'>': operator.gt,
                 '<': operator.lt,

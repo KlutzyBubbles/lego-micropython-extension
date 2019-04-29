@@ -25,6 +25,7 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,7 +36,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ev3devices_ext – EV3 MotorExts and Sensors" href="ev3devices.html" />
+    <link rel="next" title="ev3brick_ext – The EV3 Programmable Brick" href="ev3brick.html" />
     <link rel="prev" title="Getting started with EV3 MicroPython" href="index.html" /> 
 </head>
 
@@ -92,7 +93,10 @@
 </ul>
 <p class="caption"><span class="caption-text">Pybricks Modules</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ev3devices.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ev3devices_ext</span></code> – EV3 MotorExts and Sensors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ev3brick.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ev3brick_ext</span></code> – The EV3 Programmable Brick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ev3devices.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ev3devices_ext</span></code> – EV3 Motor and Sensor Extension Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parameters_ext</span></code> – Parameter and Constant Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tools_ext</span></code> – Timing and Datalogging</a></li>
 </ul>
 
             
@@ -167,18 +171,24 @@
 <li><p>A Windows 10 or Mac OS computer</p></li>
 <li><p>Internet access and administrator access</p>
 <blockquote>
-<div><p>This is required during the installation only. You will not need special access to write and run programs later on.</p>
+<div><p>This is required during the installation only. You will not need special
+access to write and run programs later on.</p>
 </div></blockquote>
 </li>
 <li><p>An EV3 Brick with the EV3 MicroPython OS running</p></li>
 <li><p>Visual Studio with the Lego EV3 Extension installed</p></li>
-<li><p>A general knowledge of the original MicroPython methods as these extensions are modelled after them</p></li>
+<li><dl class="simple">
+<dt>A general knowledge of the original MicroPython methods as these extensions</dt><dd><p>are modelled after them</p>
+</dd>
+</dl>
+</li>
 </ul>
-<p>It is recommended to follow the installation guide found <a class="reference external" href="https://TODO">HERE</a> before continuing.</p>
+<p>It is recommended to follow the installation guide found <a class="reference external" href="https://klutzybubbles.github.io/lego-micropython-docs/startinstall.html">HERE</a> before continuing.</p>
 </div>
 <div class="section" id="connecting-to-your-ev3-brick">
 <h2>Connecting to your EV3 brick<a class="headerlink" href="#connecting-to-your-ev3-brick" title="Permalink to this headline">¶</a></h2>
-<p>To run programs, you should have already connected the brick to the computer but as a refresher, here is how</p>
+<p>To run programs, you should have already connected the brick to the computer
+but as a refresher, here is how</p>
 <ul class="simple">
 <li><p>Turn the EV3 Brick on</p></li>
 <li><p>Connect the EV3 Brick to your computer with the mini-USB cable</p></li>
@@ -191,19 +201,28 @@
 </div>
 <div class="section" id="installing-the-python-package">
 <h2>Installing the Python package<a class="headerlink" href="#installing-the-python-package" title="Permalink to this headline">¶</a></h2>
-<p>In order to be able to use the extensions functions, the module must be installed onto the brick itself.</p>
-<ol class="arabic">
-<li><p>Right click the brick in the device browser and click SSH</p></li>
-<li><p>Verify the SSH connection by typing fortune</p></li>
-<li><p>Verify pip is installed by typing ‘pip -V’</p>
-<p>If pip is not installed, you can install it by running ‘python -m pip install –up grade pip’</p>
-</li>
-<li><p>Install the extension by typing ‘pip install lego-mp-ext’</p></li>
-</ol>
+<p>Unfortunately due to the minimalistic nature of upip and pybricks-MicroPython
+the package does not currently support being installed globally on the brick
+itself instead it must be installed into each project by typing
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-t</span> <span class="pre">.</span> <span class="pre">--upgrade</span> <span class="pre">lego-mp-extension</span></code></p>
 </div>
 <div class="section" id="code-linting">
 <h2>Code Linting<a class="headerlink" href="#code-linting" title="Permalink to this headline">¶</a></h2>
-<p>We have currently not been able to support true code linting, but we are looking into it</p>
+<p>The extension methods within the module have full code linting functionalities,
+but only parts of the core methods are linted within the exten sion, to add the
+missing methods just install ‘lego-mp-skeleton’ to the development environment.</p>
+<dl class="simple">
+<dt>Do NOT install the skeleton to:</dt><dd><ul class="simple">
+<li><p>The brick itself</p></li>
+<li><p>The bricks program folder</p></li>
+<li><p>Any machine the brick can run code from</p></li>
+</ul>
+</dd>
+</dl>
+<p>Doing this will cause the brick methods to potentially be ovverriden and
+severly affect the bricks performance or general use
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">[--user]</span> <span class="pre">--upgrade</span> <span class="pre">lego-mp-skeleton</span></code>
+with the [] meaning optional</p>
 </div>
 </div>
 
@@ -215,7 +234,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ev3devices.html" class="btn btn-neutral float-right" title="ev3devices_ext – EV3 MotorExts and Sensors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ev3brick.html" class="btn btn-neutral float-right" title="ev3brick_ext – The EV3 Programmable Brick" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Getting started with EV3 MicroPython" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

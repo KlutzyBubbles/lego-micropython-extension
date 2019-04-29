@@ -11,18 +11,21 @@ To get started, you'll need:
 - A Windows 10 or Mac OS computer
 - Internet access and administrator access
 
-    This is required during the installation only. You will not need special access to write and run programs later on.
+    This is required during the installation only. You will not need special
+    access to write and run programs later on.
 
 - An EV3 Brick with the EV3 MicroPython OS running
 - Visual Studio with the Lego EV3 Extension installed
-- A general knowledge of the original MicroPython methods as these extensions are modelled after them
+- A general knowledge of the original MicroPython methods as these extensions
+    are modelled after them
 
-It is recommended to follow the installation guide found `HERE <https://TODO>`_ before continuing.
+It is recommended to follow the installation guide found `HERE <https://klutzybubbles.github.io/lego-micropython-docs/startinstall.html>`_ before continuing.
 
 Connecting to your EV3 brick
 -----------------------------------------------------------
 
-To run programs, you should have already connected the brick to the computer but as a refresher, here is how
+To run programs, you should have already connected the brick to the computer
+but as a refresher, here is how
 
 - Turn the EV3 Brick on
 - Connect the EV3 Brick to your computer with the mini-USB cable
@@ -40,18 +43,24 @@ To run programs, you should have already connected the brick to the computer but
 Installing the Python package
 -----------------------------------------------------------
 
-In order to be able to use the extensions functions, the module must be installed onto the brick itself.
-
-1. Right click the brick in the device browser and click SSH
-2. Verify the SSH connection by typing fortune
-3. Verify pip is installed by typing 'pip -V'
-
-   If pip is not installed, you can install it by running 'python -m pip install --up grade pip'
-
-4. Install the extension by typing 'pip install lego-mp-ext'
-
+Unfortunately due to the minimalistic nature of upip and pybricks-MicroPython
+the package does not currently support being installed globally on the brick
+itself instead it must be installed into each project by typing
+:mod:`pip install -t . --upgrade lego-mp-extension`
 
 Code Linting
 -----------------------------------------------------------
 
-We have currently not been able to support true code linting, but we are looking into it
+The extension methods within the module have full code linting functionalities,
+but only parts of the core methods are linted within the exten sion, to add the
+missing methods just install 'lego-mp-skeleton' to the development environment.
+
+Do NOT install the skeleton to:
+    - The brick itself
+    - The bricks program folder
+    - Any machine the brick can run code from
+
+Doing this will cause the brick methods to potentially be ovverriden and
+severly affect the bricks performance or general use
+:mod:`pip install [--user] --upgrade lego-mp-skeleton`
+with the [] meaning optional

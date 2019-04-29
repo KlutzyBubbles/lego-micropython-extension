@@ -1,5 +1,7 @@
-from pybricks.parameters import Color
 from enum import Enum
+
+from pybricks.parameters import Color
+
 
 class ColorExt(Enum):
     """

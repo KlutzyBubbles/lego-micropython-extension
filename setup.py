@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="lego-mp-extension",
-    version="0.1.3",
+    version="0.1.5",
     author="Lee Tzilantonis",
     author_email="LTzilantonis@gmail.com",
     description="Extension for the Lego EV3 MicroPython Port",

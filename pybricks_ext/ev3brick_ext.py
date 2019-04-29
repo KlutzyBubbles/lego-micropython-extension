@@ -4,13 +4,13 @@ from pybricks import ev3brick as brick
 from pybricks.parameters import Color
 from pybricks.tools import wait
 
-import _thread
+from pybricks_ext.parameters_ext import ColorExt
 
 flashing_lock = None
 
 def light_pulse(color, short_pause=200, long_pause=800, on_pause=100):
     """Set the brick light to pulse a color
-    
+
     :param color: Color of the light
     :type color: ColorExt
     :param short_pause: Duration of the short pause, defaults to 200
@@ -63,7 +63,7 @@ class LightPulse(threading.Thread):
 class LightFlash(threading.Thread):
 
     def __init__(self, color, off_pause, on_pause):
-        super(LightPulse, self).__init__()
+        super().__init__()
         self.color = color
         self.off_pause = off_pause
         self.on_pause = on_pause
@@ -83,7 +83,7 @@ class LightFlash(threading.Thread):
 
 def light_flash(color, off_pause=500, on_pause=500):
     """Set the brick light to flash a color
-    
+
     :param color: Color of the light
     :type color: Color
     :param off_pause: Duration of the off pause, defaults to 500
@@ -113,9 +113,9 @@ class SpeakerExt():
     Extension class for the Speaker Object
     """
 
-    def beep(frequency=500, duration=100, volume=30, wait=False):
+    def beep(self, frequency=500, duration=100, volume=30, wait=False):
         """Play a beep/tone
-        
+
         :param frequency: Frequency of the beep, defaults to 500
         :type frequency: int, optional
         :param duration: Duration of the beep, defaults to 100
@@ -128,11 +128,14 @@ class SpeakerExt():
         if wait:
             brick.sound.beep(frequency=frequency, duration=duration, volume=volume)
         else:
-            threading.Thread(target=brick.sound.beep, kwargs={"frequency": frequency, "duration": duration, "volume": volume})
+            threading.Thread(target=brick.sound.beep, kwargs={
+                "frequency": frequency,
+                "duration": duration,
+                "volume": volume})
 
-    def beeps(number, wait=False):
+    def beeps(self, number, wait=False):
         """Play a number of default beeps with a brief pause in between
-        
+
         :param number: Number of beeps
         :type number: int
         :param wait: Whether to wait for the beeps to finish before continuing, defaults to False
@@ -143,9 +146,9 @@ class SpeakerExt():
         else:
             threading.Thread(target=brick.sound.beeps, args=(number))
 
-    def file(file_name, volume=100, wait=False):
+    def file(self, file_name, volume=100, wait=False):
         """Play a sound file
-        
+
         :param file_name: Path to the sound file, including extension
         :type file_name: SoundFile, str
         :param volume: Volume of the sound, defaults to 100

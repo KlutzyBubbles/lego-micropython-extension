@@ -1,9 +1,6 @@
-from enum import Enum
+import pybricks.parameters as params
 
-from pybricks.parameters import Color
-
-
-class ColorExt(Enum):
+class Color(params.Color):
     """
     Extension class for Color with utility methods
     """
@@ -36,17 +33,17 @@ class ColorExt(Enum):
         """
         if isinstance(color_a, (list, tuple, dict)):
             if not isinstance(color_b, Color):
-                color_b = ColorExt.from_number(color_b)
+                color_b = Color.from_number(color_b)
             return color_b in color_a
         elif isinstance(color_b, (list, tuple, dict)):
             if not isinstance(color_a, Color):
-                color_a = ColorExt.from_number(color_a)
+                color_a = Color.from_number(color_a)
             return color_a in color_b
         else:
             if not isinstance(color_a, Color):
-                color_a = ColorExt.from_number(color_a)
+                color_a = Color.from_number(color_a)
             if not isinstance(color_b, Color):
-                color_b = ColorExt.from_number(color_b)
+                color_b = Color.from_number(color_b)
             return color_a == color_b
 
     @staticmethod
@@ -119,12 +116,12 @@ class ColorExt(Enum):
         }
         return switch.get(number, d=None)
 
-class DirectionExt(Enum):
+class Direction(params.Direction):
 
     CLOCKWISE = 0
     ANTICLOCKWISE = 1
 
-class PortExt(Enum):
+class Port(params.Port):
 
     A = 65
     B = 66
@@ -135,7 +132,7 @@ class PortExt(Enum):
     S3 = 51
     S4 = 52
 
-class SoundFileExt(Enum):
+class SoundFile(params.SoundFile):
 
     BRAVO = "/usr/share/sounds/ev3dev/communication/bravo.wav"
     LEGO = "/usr/share/sounds/ev3dev/communication/lego.wav"
@@ -244,7 +241,7 @@ class SoundFileExt(Enum):
     LEFT = "/usr/share/sounds/ev3dev/information/left.wav"
     SNEEZING = "/usr/share/sounds/ev3dev/expressions/sneezing.wav"
 
-class ImageFileExt(Enum):
+class ImageFile(params.ImageFile):
 
     TIRED_MIDDLE = "/usr/share/images/ev3dev/mono/eyes/tired_middle.png"
     FORWARD = "/usr/share/images/ev3dev/mono/information/forward.png"
@@ -286,7 +283,7 @@ class ImageFileExt(Enum):
     THUMBS_UP = "/usr/share/images/ev3dev/mono/information/thumbs_up.png"
     DOWN = "/usr/share/images/ev3dev/mono/eyes/down.png"
 
-class ButtonExt(Enum):
+class Button(params.Button):
 
     UP = 256
     DOWN = 4
@@ -299,13 +296,13 @@ class ButtonExt(Enum):
     RIGHT_DOWN = 8
     BEACON = 256
 
-class StopExt(Enum):
+class Stop(params.Stop):
 
     COAST = 0
     BRAKE = 1
     HOLD = 2
 
-class AlignExt(Enum):
+class Align(params.Align):
 
     BOTTOM_LEFT = 1
     TOP_LEFT = 7

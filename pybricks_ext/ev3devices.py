@@ -1,7 +1,6 @@
 from operator import eq, ge, gt, le, lt, ne
 
-from pybricks.ev3devices import (ColorSensor, GyroSensor, InfraredSensor,
-                                 Motor, TouchSensor, UltrasonicSensor)
+import pybricks.ev3devices as devices
 from pybricks.parameters import Stop, Direction
 from pybricks.tools import wait, StopWatch
 
@@ -17,7 +16,7 @@ def _operator_calc(val_a, val_b, operator):
                  '!=': ne}
     return operators[operator](val_a, val_b)
 
-class MotorExt(Motor):
+class Motor(devices.Motor):
     """
     Extension class for the Motor device with useful functions
     mainly relating to speed and specific gear targeting
@@ -57,7 +56,7 @@ class MotorExt(Motor):
         :return: Motor angle
         :rttype: int, float
         """
-        return super(MotorExt, self).angle() * get_ratio(self.gears, depth=depth)
+        return super(Motor, self).angle() * get_ratio(self.gears, depth=depth)
 
     def output_speed(self, depth=None):
         """
@@ -68,7 +67,7 @@ class MotorExt(Motor):
         :return: Rotational speed in deg/s
         :rtype: int, float
         """
-        return super(MotorExt, self).speed() * get_ratio(self.gears, depth=depth)
+        return super(Motor, self).speed() * get_ratio(self.gears, depth=depth)
 
     def output_run(self, speed, depth=None):
         """
@@ -80,8 +79,8 @@ class MotorExt(Motor):
         :type depth: int, optional
         """
         if depth is None:
-            super(MotorExt, self).run(speed)
-        super(MotorExt, self).run(speed / get_ratio(self.gears, depth=depth))
+            super(Motor, self).run(speed)
+        super(Motor, self).run(speed / get_ratio(self.gears, depth=depth))
 
     def output_percent_run(self, speed, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage)
@@ -93,7 +92,7 @@ class MotorExt(Motor):
         """
         if depth is None:
             self.percent_run(speed)
-        super(MotorExt, self).run(speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth))
+        super(Motor, self).run(speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth))
 
     def percent_run(self, speed):
         """Keep the motor running at a constant speed (percentage)
@@ -101,7 +100,7 @@ class MotorExt(Motor):
         :param speed: Speed of the Motor
         :type speed: int, float
         """
-        super(MotorExt, self).run(speed_deg(speed, rpm=self.rpm))
+        super(Motor, self).run(speed_deg(speed, rpm=self.rpm))
 
     def output_run_time(self, speed, time, stop_type=Stop.COAST, wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed for a
@@ -121,8 +120,8 @@ class MotorExt(Motor):
         :type depth: int, optional
         """
         if depth is None:
-            super(MotorExt, self).run_time(speed, time, stop_type=stop_type, wait=wait)
-        super(MotorExt, self).run_time(speed / get_ratio(self.gears, depth=depth),
+            super(Motor, self).run_time(speed, time, stop_type=stop_type, wait=wait)
+        super(Motor, self).run_time(speed / get_ratio(self.gears, depth=depth),
                                        time,
                                        stop_type=stop_type,
                                        wait=wait)
@@ -146,7 +145,7 @@ class MotorExt(Motor):
         """
         if depth is None:
             self.percent_run_time(speed, time, stop_type=stop_type, wait=wait)
-        super(MotorExt, self).run_time(
+        super(Motor, self).run_time(
             speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth),
             time, stop_type=stop_type, wait=wait)
 
@@ -164,7 +163,7 @@ class MotorExt(Motor):
                      the program, defaults to True
         :type wait: bool, optional
         """
-        super(MotorExt, self).run_time(speed_deg(speed, rpm=self.rpm),
+        super(Motor, self).run_time(speed_deg(speed, rpm=self.rpm),
                                        time, stop_type=stop_type, wait=wait)
 
     def output_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST, wait=True, depth=None):
@@ -185,9 +184,9 @@ class MotorExt(Motor):
         :type depth: int, optional
         """
         if depth is None:
-            super(MotorExt, self).run_angle(speed, rotation_angle, stop_type=stop_type, wait=wait)
+            super(Motor, self).run_angle(speed, rotation_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(MotorExt, self).run_angle(speed / ratio,
+        super(Motor, self).run_angle(speed / ratio,
                                         rotation_angle / ratio,
                                         stop_type=stop_type,
                                         wait=wait)
@@ -213,8 +212,8 @@ class MotorExt(Motor):
         if depth is None:
             self.percent_run_angle(speed, rotation_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(MotorExt, self).run_angle(speed_deg(speed, rpm=self.rpm) / ratio,
-                                        rotation_angle / ratio, stop_type=stop_type, wait=wait)
+        super(Motor, self).run_angle(speed_deg(speed, rpm=self.rpm) / ratio,
+                                     rotation_angle / ratio, stop_type=stop_type, wait=wait)
 
     def percent_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST, wait=True):
         """Keep the motor running at a constant speed (percentage) for a
@@ -231,7 +230,7 @@ class MotorExt(Motor):
                      the program, defaults to True
         :type wait: bool, optional
         """
-        super(MotorExt, self).run_angle(speed_deg(speed, rpm=self.rpm),
+        super(Motor, self).run_angle(speed_deg(speed, rpm=self.rpm),
                                         rotation_angle, stop_type=stop_type, wait=wait)
 
     def output_run_target(self, speed, target_angle, stop_type=Stop.COAST, wait=True, depth=None):
@@ -253,9 +252,9 @@ class MotorExt(Motor):
         :type depth: int, optional
         """
         if depth is None:
-            super(MotorExt, self).run_target(speed, target_angle, stop_type=stop_type, wait=wait)
+            super(Motor, self).run_target(speed, target_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(MotorExt, self).run_target(speed / ratio, target_angle / ratio,
+        super(Motor, self).run_target(speed / ratio, target_angle / ratio,
                                          stop_type=stop_type, wait=wait)
 
     def output_percent_run_target(self, speed, target_angle, stop_type=Stop.COAST,
@@ -280,7 +279,7 @@ class MotorExt(Motor):
         if depth is None:
             self.percent_run_target(speed, target_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(MotorExt, self).run_target(speed_deg(speed, rpm=self.rpm) / ratio,
+        super(Motor, self).run_target(speed_deg(speed, rpm=self.rpm) / ratio,
                                          target_angle / ratio, stop_type=stop_type, wait=wait)
 
     def percent_run_target(self, speed, target_angle, stop_type=Stop.COAST, wait=True):
@@ -299,7 +298,7 @@ class MotorExt(Motor):
                      the program, defaults to True
         :type wait: bool, optional
         """
-        super(MotorExt, self).run_target(speed_deg(speed, rpm=self.rpm), target_angle,
+        super(Motor, self).run_target(speed_deg(speed, rpm=self.rpm), target_angle,
                                          stop_type=stop_type, wait=wait)
 
     def output_run_until_stalled(self, speed, stop_type=Stop.COAST, duty_limit=100, depth=None):
@@ -316,9 +315,9 @@ class MotorExt(Motor):
         :type depth: int, optional
         """
         if depth is None:
-            super(MotorExt, self).run_until_stalled(speed, stop_type=stop_type,
+            super(Motor, self).run_until_stalled(speed, stop_type=stop_type,
                                                     duty_limit=duty_limit)
-        super(MotorExt, self).run_until_stalled(speed / get_ratio(self.gears, depth=depth),
+        super(Motor, self).run_until_stalled(speed / get_ratio(self.gears, depth=depth),
                                                 stop_type=stop_type, duty_limit=duty_limit)
 
     def output_percent_run_until_stalled(self, speed, stop_type=Stop.COAST,
@@ -338,7 +337,7 @@ class MotorExt(Motor):
         if depth is None:
             self.percent_run_until_stalled(speed, stop_type=stop_type,
                                            duty_limit=duty_limit)
-        super(MotorExt, self).run_until_stalled(
+        super(Motor, self).run_until_stalled(
             speed_deg(speed, rpm=self.rpm) * get_ratio(self.gears, depth=depth),
             stop_type=stop_type, duty_limit=duty_limit)
 
@@ -353,14 +352,14 @@ class MotorExt(Motor):
         :param duty_limit: Relative torque limit, defaults to 100
         :type duty_limit: int, optional
         """
-        super(MotorExt, self).run_until_stalled(speed_deg(speed, rpm=self.rpm),
+        super(Motor, self).run_until_stalled(speed_deg(speed, rpm=self.rpm),
                                                 stop_type=stop_type, duty_limit=duty_limit)
 
     def wait_until_motor_stop(self):
         """
         Waits until the motor stops
         """
-        while super(MotorExt, self).speed() != 0:
+        while super(Motor, self).speed() != 0:
             wait(10)
         return
 
@@ -368,7 +367,7 @@ class MotorExt(Motor):
         """
         Waits until the motor starts
         """
-        while super(MotorExt, self).speed() == 0:
+        while super(Motor, self).speed() == 0:
             wait(10)
         return
 
@@ -380,11 +379,11 @@ class MotorExt(Motor):
         :param speed: Speed to calculate against (Motor.speed <OP> speed)
         :type speed: int, float
         """
-        while not _operator_calc(super(MotorExt, self).speed(), speed, operator):
+        while not _operator_calc(super(Motor, self).speed(), speed, operator):
             wait(10)
         return
 
-class TouchSensorExt(TouchSensor):
+class TouchSensor(devices.TouchSensor):
     """
     Extension class for the TouchSensor with helpful
     methods mainly relating to wait functions
@@ -400,7 +399,7 @@ class TouchSensorExt(TouchSensor):
         """
         Wait until the TouchSensor is pressed
         """
-        while not super(TouchSensorExt, self).pressed():
+        while not super(TouchSensor, self).pressed():
             wait(10)
         return
 
@@ -408,7 +407,7 @@ class TouchSensorExt(TouchSensor):
         """
         Wait until the TouchSensor is released
         """
-        while super(TouchSensorExt, self).pressed():
+        while super(TouchSensor, self).pressed():
             wait(10)
         return
 
@@ -432,7 +431,7 @@ class TouchSensorExt(TouchSensor):
                 continue
             return
 
-class ColorSensorExt(ColorSensor):
+class ColorSensor(devices.ColorSensor):
     """Extension class for the ColorSensor with helpful methods
 
     Further documentation for the ColorSensor class can be found
@@ -453,7 +452,7 @@ class ColorSensorExt(ColorSensor):
         :return: Whether or not the color is equal or is contained
         :rtype: bool
         """
-        return ColorExt.compare(color, super(ColorSensorExt, self).color())
+        return ColorExt.compare(color, super(ColorSensor, self).color())
 
     def wait_until_color_is(self, color):
         """Waits until the color equals a Color or a set of Colors
@@ -489,7 +488,7 @@ class ColorSensorExt(ColorSensor):
         :param ambient: Ambient value to calculate against (ColorSensor.ambient <OP> ambient)
         :type ambient: int, float
         """
-        while not _operator_calc(super(ColorSensorExt, self).ambient(), ambient, operator):
+        while not _operator_calc(super(ColorSensor, self).ambient(), ambient, operator):
             wait(10)
         return
 
@@ -502,7 +501,7 @@ class ColorSensorExt(ColorSensor):
                            (ColorSensor.reflection <OP> reflection)
         :type reflection: int, float
         """
-        while not _operator_calc(super(ColorSensorExt, self).reflection(), reflection, operator):
+        while not _operator_calc(super(ColorSensor, self).reflection(), reflection, operator):
             wait(10)
         return
 
@@ -513,7 +512,7 @@ class ColorSensorExt(ColorSensor):
                  0.0 (no reflection) to 255.0 (high reflection).
         :rtype: tuple
         """
-        rgb = super(ColorSensorExt, self).rgb()
+        rgb = super(ColorSensor, self).rgb()
         base = 255 / 100
         return (base * rgb[0], base * rgb[1], base * rgb[2])
 
@@ -531,7 +530,7 @@ class ColorSensorExt(ColorSensor):
         :return: Color measured in the form (h, s, v)
         :rtype: tuple
         """
-        rgb = super(ColorSensorExt, self).rgb()
+        rgb = super(ColorSensor, self).rgb()
         r, g, b = rgb[0] / 100.0, rgb[1] / 100.0, rgb[2] / 100.0
         mx = max(r, g, b)
         mn = min(r, g, b)
@@ -559,7 +558,7 @@ class ColorSensorExt(ColorSensor):
         """
         return self.hsv()[0]
 
-class InfraredSensorExt(InfraredSensor):
+class InfraredSensor(devices.InfraredSensor):
     """Extension class for the InfraredSensor with helpful methods
 
     Further documentation for the InfraredSensor class can be found
@@ -577,7 +576,7 @@ class InfraredSensorExt(InfraredSensor):
         :return: Relative distance between the remote and the infrared sensor
         :rtype: int, float
         """
-        return super(InfraredSensorExt, self).beacon(channel)[0]
+        return super(InfraredSensor, self).beacon(channel)[0]
 
     def beacon_angle(self, channel):
         """Measure the relative angle to the remote and the infrared sensor
@@ -587,7 +586,7 @@ class InfraredSensorExt(InfraredSensor):
         :return: Relative angle to the remote and the infrared sensor
         :rtype: int
         """
-        return super(InfraredSensorExt, self).beacon(channel)[1]
+        return super(InfraredSensor, self).beacon(channel)[1]
 
     def wait_until_distance(self, operator, distance):
         """Waits until the distance matches certain conditions
@@ -597,7 +596,7 @@ class InfraredSensorExt(InfraredSensor):
         :param distance: Distance value to calculate against (InfraredSensor.distance <OP> distance)
         :type distance: int, float
         """
-        while not _operator_calc(super(InfraredSensorExt, self).distance(), distance, operator):
+        while not _operator_calc(super(InfraredSensor, self).distance(), distance, operator):
             wait(10)
         return
 
@@ -641,13 +640,13 @@ class InfraredSensorExt(InfraredSensor):
         """
         if isinstance(button, (list, tuple, dict)):
             while True:
-                buttons = super(InfraredSensorExt, self).buttons(channel)
+                buttons = super(InfraredSensor, self).buttons(channel)
                 for one_button in button:
                     if one_button in buttons:
                         return
                 wait(10)
         else:
-            while button not in super(InfraredSensorExt, self).buttons(channel):
+            while button not in super(InfraredSensor, self).buttons(channel):
                 wait(10)
         return
 
@@ -661,13 +660,13 @@ class InfraredSensorExt(InfraredSensor):
         """
         if isinstance(button, (list, tuple, dict)):
             while True:
-                buttons = super(InfraredSensorExt, self).buttons(channel)
+                buttons = super(InfraredSensor, self).buttons(channel)
                 for one_button in button:
                     if one_button not in buttons:
                         return
                 wait(10)
         else:
-            while button in super(InfraredSensorExt, self).buttons(channel):
+            while button in super(InfraredSensor, self).buttons(channel):
                 wait(10)
         return
 
@@ -695,7 +694,7 @@ class InfraredSensorExt(InfraredSensor):
                 continue
             return
 
-class UltrasonicSensorExt(UltrasonicSensor):
+class UltrasonicSensor(devices.UltrasonicSensor):
     """Extension class for the UltrasonicSensor with helpful methods
 
     Further documentation for the UltrasonicSensor class can be found
@@ -714,7 +713,7 @@ class UltrasonicSensorExt(UltrasonicSensor):
                          (UltrasonicSensor.distance <OP> distance)
         :type distance: int, float
         """
-        while not _operator_calc(super(UltrasonicSensorExt, self).distance(), distance, operator):
+        while not _operator_calc(super(UltrasonicSensor, self).distance(), distance, operator):
             wait(10)
         return
 
@@ -722,17 +721,17 @@ class UltrasonicSensorExt(UltrasonicSensor):
         """
         Waits until the UltrasonicSensor detects the presence of another UltrasonicSensor
         """
-        while not super(UltrasonicSensorExt, self).presence():
+        while not super(UltrasonicSensor, self).presence():
             wait(10)
 
     def wait_until_not_presence(self):
         """
         Waits until the UltrasonicSensor doesn't detect the presence of another UltrasonicSensor
         """
-        while super(UltrasonicSensorExt, self).presence():
+        while super(UltrasonicSensor, self).presence():
             wait(10)
 
-class GyroSensorExt(GyroSensor):
+class GyroSensor(devices.GyroSensor):
     """Extension class for the GyroSensor with helpful methods
 
     Further documentation for the GyroSensor class can be found
@@ -746,7 +745,7 @@ class GyroSensorExt(GyroSensor):
         """
         Initiate the GyroSensorExt Object
         """
-        super(GyroSensorExt, self).__init__(port)
+        super(GyroSensor, self).__init__(port)
 
     def speed_rotations(self):
         """Gets the speed (angular velocity) of the sensor in rotations a second
@@ -754,7 +753,7 @@ class GyroSensorExt(GyroSensor):
         :return: Sensor angular velocity in rotations a second
         :rtype: int, float
         """
-        return super(GyroSensorExt, self).speed() / 360
+        return super(GyroSensor, self).speed() / 360
 
     def bearing(self):
         """Gets the current bearing of the sensor
@@ -762,7 +761,7 @@ class GyroSensorExt(GyroSensor):
         :return: Current bearing of the sensor from 0 to 360
         :rtype: int
         """
-        return super(GyroSensorExt, self).angle() % 360
+        return super(GyroSensor, self).angle() % 360
 
     def angle_rotations(self):
         """Gets the accumulated angle of the sensor in rotations
@@ -770,7 +769,7 @@ class GyroSensorExt(GyroSensor):
         :return: Rotation angle
         :rtype: int, float
         """
-        return super(GyroSensorExt, self).angle() / 360
+        return super(GyroSensor, self).angle() / 360
 
     def reset_angle_bearing(self, angle):
         """Sets the rotation angle of the sensor to the bearing of an angle
@@ -778,7 +777,7 @@ class GyroSensorExt(GyroSensor):
         :param angle: Value to which the beaing should be calculated from
         :type angle: int
         """
-        super(GyroSensorExt, self).reset_angle(angle % 360)
+        super(GyroSensor, self).reset_angle(angle % 360)
 
     def wait_until_speed(self, operator, speed):
         """Waits until the speed matches certain conditions
@@ -788,7 +787,7 @@ class GyroSensorExt(GyroSensor):
         :param speed: Speed value to calculate against (GyroSensor.speed <OP> speed)
         :type speed: int, float
         """
-        while not _operator_calc(super(GyroSensorExt, self).speed(), speed, operator):
+        while not _operator_calc(super(GyroSensor, self).speed(), speed, operator):
             wait(10)
         return
 
@@ -800,7 +799,7 @@ class GyroSensorExt(GyroSensor):
         :param angle: Angle value to calculate against (GyroSensor.angle <OP> angle)
         :type angle: int, float
         """
-        while not _operator_calc(super(GyroSensorExt, self).angle(), angle, operator):
+        while not _operator_calc(super(GyroSensor, self).angle(), angle, operator):
             wait(10)
         return
 

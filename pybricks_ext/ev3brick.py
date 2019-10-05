@@ -1,5 +1,6 @@
 import threading
 
+import pybricks
 from pybricks import ev3brick as brick
 from pybricks.parameters import Color
 from pybricks.tools import wait
@@ -108,7 +109,7 @@ def light(color):
 def buttons():
     return brick.buttons()
 
-class SpeakerExt():
+class Speaker(pybricks.ev3brick.sound):
     """
     Extension class for the Speaker Object
     """
@@ -161,6 +162,6 @@ class SpeakerExt():
         else:
             threading.Thread(target=brick.sound.file, args=(file_name), kwargs={"volume": volume})
 
-sound = SpeakerExt()
+sound = Speaker()
 display = brick.display
 battery = brick.battery

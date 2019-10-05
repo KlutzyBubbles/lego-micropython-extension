@@ -1,7 +1,6 @@
 import sys
 
 import pybricks
-from pybricks.tools import StopWatch
 
 def print(*value, sep=' ', end='\n', file=sys.stdout, flush=False):
     pybricks.tools.print(value, sep=sep, end=end, file=file, flush=flush)
@@ -9,7 +8,7 @@ def print(*value, sep=' ', end='\n', file=sys.stdout, flush=False):
 def wait(time):
     pybricks.tools.wait(time)
 
-class StopWatchExt(StopWatch):
+class StopWatch(pybricks.tools.StopWatch):
     """
     Extension class for the StopWatch Object
     """
@@ -21,7 +20,7 @@ class StopWatchExt(StopWatch):
         :param time: Time value to pass before continuing
         :type time: int
         """
-        super(StopWatchExt, self).resume()
-        while super(StopWatchExt, self).time() < time:
+        super(StopWatch, self).resume()
+        while super(StopWatch, self).time() < time:
             wait(10)
         return

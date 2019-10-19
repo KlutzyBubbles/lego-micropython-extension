@@ -4,8 +4,8 @@ import pybricks.ev3devices as devices
 from pybricks.parameters import Stop, Direction
 from pybricks.tools import wait, StopWatch
 
-from parameters_ext import ColorExt
-from speed_util import get_ratio, speed_deg
+from pybricks_ext.parameters import ColorUtils
+from pybricks_ext.speed_util import get_ratio, speed_deg
 
 def _operator_calc(val_a, val_b, operator):
     operators = {'>': gt,
@@ -452,7 +452,7 @@ class ColorSensor(devices.ColorSensor):
         :return: Whether or not the color is equal or is contained
         :rtype: bool
         """
-        return ColorExt.compare(color, super(ColorSensor, self).color())
+        return Color.compare(color, super(ColorSensor, self).color())
 
     def wait_until_color_is(self, color):
         """Waits until the color equals a Color or a set of Colors

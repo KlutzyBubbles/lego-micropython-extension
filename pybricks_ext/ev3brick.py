@@ -2,10 +2,9 @@ import threading
 
 import pybricks
 from pybricks import ev3brick as brick
-from pybricks.parameters import Color
 from pybricks.tools import wait
 
-from parameters_ext import ColorExt
+from pybricks.parameters import Color
 
 flashing_lock = None
 
@@ -25,7 +24,7 @@ def light_pulse(color, short_pause=200, long_pause=800, on_pause=100):
     if isinstance(flashing_lock, LightPulse):
         flashing_lock.kill()
         flashing_lock = None
-    if color is None or ColorExt.compare(color, Color.BLACK):
+    if color is None or Color.compare(color, Color.BLACK):
         light(None)
     else:
         flashing_lock = LightPulse(color, short_pause, long_pause, on_pause)
@@ -109,6 +108,7 @@ def light(color):
 def buttons():
     return brick.buttons()
 
+'''
 class Speaker(pybricks.ev3brick.sound):
     """
     Extension class for the Speaker Object
@@ -163,5 +163,7 @@ class Speaker(pybricks.ev3brick.sound):
             threading.Thread(target=brick.sound.file, args=(file_name), kwargs={"volume": volume})
 
 sound = Speaker()
+'''
+sound = brick.sound
 display = brick.display
 battery = brick.battery

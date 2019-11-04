@@ -42,6 +42,15 @@ programs and start inventing your own programs.
    signaltypes
 
 .. toctree::
+    :maxdepth: 1
+    :caption: Demo Programs
+    :hidden:
+
+    examples/robot_educator
+    examples/color_sorter
+    examples/robot_arm_h25
+
+.. toctree::
    :maxdepth: 1
    :caption: Contributing
    :hidden:

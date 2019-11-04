@@ -1,8 +1,8 @@
-:mod:`tools_ext` -- Timing and Datalogging
+:mod:`tools` -- Timing and Datalogging
 ==========================================
 
-.. automodule:: tools_ext
+.. automodule:: tools
     :no-members:
 
-    .. autoclass:: StopWatchExt
+    .. autoclass:: StopWatch
         :members:

@@ -167,3 +167,9 @@ sound = Speaker()
 sound = brick.sound
 display = brick.display
 battery = brick.battery
+
+def buttons():
+    return brick.buttons()
+
+def light(color):
+    return brick.light(color)

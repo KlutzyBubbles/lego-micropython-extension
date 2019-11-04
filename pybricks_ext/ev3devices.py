@@ -739,13 +739,15 @@ class GyroSensor(devices.GyroSensor):
 
     :param port: Port to which the sensor is connected
     :type port: Port
+    :param direction:  Positive rotation direction when looking at the red dot on top of the sensor (Default: :attr:`~parameters.Direction.CLOCKWISE`).
+    :type direction: :class:`~parameters.Direction`
     """
 
-    def __init__(self, port):
+    def __init__(self, port, direction=Direction.CLOCKWISE):
         """
         Initiate the GyroSensorExt Object
         """
-        super(GyroSensor, self).__init__(port)
+        super(GyroSensor, self).__init__(port, direction)
 
     def speed_rotations(self):
         """Gets the speed (angular velocity) of the sensor in rotations a second

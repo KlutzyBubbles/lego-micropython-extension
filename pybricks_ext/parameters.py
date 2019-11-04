@@ -1,5 +1,14 @@
 import pybricks.parameters as params
 
+Button = params.Button
+Direction = params.Direction
+Stop = params.Stop
+Port = params.Port
+Color = params.Color
+Align = params.Align
+ImageFile = params.ImageFile
+SoundFile = params.SoundFile
+
 class ColorUtils():
     """
     Extension class for Color with utility methods

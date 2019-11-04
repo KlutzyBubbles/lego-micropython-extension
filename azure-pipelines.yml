@@ -1,0 +1,253 @@
+pr:
+  branches:
+    include:
+    - master
+    - dev
+  paths:
+    include:
+    - tests/*
+    - pybricks_ext/*
+    - docs/*
+    - template/*
+    - version.txt
+    - setup.py
+    - azure-pipelines.yml
+    exclude:
+    - .*
+    - README.md
+    - LICENSE
+
+variables:
+- group: pypi-credentials
+- group: github-ssh-keys
+- name: Branch
+  value: '$(Build.SourceBranchName)'
+- name: BuildNumber
+  value: '$(Build.BuildNumber)'
+
+name: $(Date:yyyyMMdd)$(Rev:.rr)
+
+jobs:
+- job: Test
+  pool:
+    vmImage: 'ubuntu-latest'
+  strategy:
+    matrix:
+      Python34:
+        python.version: '3.4'
+      Python35:
+        python.version: '3.5'
+      Python36:
+        python.version: '3.6'
+      Python37:
+        python.version: '3.7'
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-azurepipelines pytest-cov lego-mp-skeleton
+        pytest --cov pybricks --cov-report html
+    displayName: 'pytest'
+
+- job: Build
+  pool:
+    vmImage: 'ubuntu-latest'
+  dependsOn: Test
+  steps:
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.Repository.LocalPath)/pybricks_ext'
+      Contents: |
+        *.py
+        **\*.py
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/pybricks_ext'
+    displayName: 'Copy pybricks source'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.Repository.LocalPath)'
+      Contents: |
+        setup.py
+        version.txt
+        README.md
+        LICENSE
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy requirements and setup'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'build'
+      publishLocation: 'Container'
+
+- job: BuildDocFiles
+  pool:
+    vmImage: 'ubuntu-latest'
+  dependsOn: Test
+  condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
+  steps:
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.Repository.LocalPath)/pybricks_ext'
+      Contents: |
+        *.py
+        **\*.py
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/pybricks_ext'
+    displayName: 'Copy pybricks source'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.Repository.LocalPath)/docs'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/docs'
+    displayName: 'Copy docs'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.Repository.LocalPath)/examples'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/examples'
+    displayName: 'Copy examples'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.Repository.LocalPath)/template'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/template'
+    displayName: 'Copy templates'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.Repository.LocalPath)'
+      Contents: |
+        version.txt
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy version'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'build-docs'
+      publishLocation: 'Container'
+
+- deployment: Distribute
+  pool:
+    vmImage: 'ubuntu-latest'
+  dependsOn: Build
+  environment: 'extension-$(Branch)'
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: DownloadBuildArtifacts@0
+          inputs:
+            artifactName: 'build'
+            buildType: 'current'
+            downloadType: 'single'
+            downloadPath: '$(System.ArtifactsDirectory)'
+        - task: UsePythonVersion@0
+          displayName: 'Use Python 3.7'
+          inputs:
+            versionSpec: 3.7
+        - task: Bash@3
+          inputs:
+            targetType: 'inline'
+            workingDirectory: '$(System.ArtifactsDirectory)/build'
+            script: |
+              python -m pip install --upgrade pip
+              pip install --user --upgrade setuptools wheel twine
+          displayName: 'Install Dist Packages'
+        - task: Bash@3
+          inputs:
+            targetType: 'inline'
+            workingDirectory: '$(System.ArtifactsDirectory)/build'
+            script: |
+              prefix=""
+              if [ "$BRANCH" == "dev" ]
+              then
+                prefix="dev"
+              fi
+              build_number=${BUILD_NUMBER//./}
+              export PACKAGE_BUILD=".${prefix}${build_number}"
+              export VERSION="$(<version.txt)"
+              export PACKAGE_VERSION="${VERSION}${PACKAGE_BUILD}"
+              python setup.py sdist bdist_wheel
+              python -m twine upload dist/* --skip-existing -u $PYPI_USERNAME -p $PYPI_PASSWORD
+          displayName: 'Package and build'
+          env:
+            BRANCH: $(Branch)
+            BUILD_NUMBER: $(BuildNumber)
+            PYPI_USERNAME: $(PYPI_USERNAME)
+            PYPI_PASSWORD: $(PYPI_PASSWORD)
+
+- deployment: BuildDocs
+  pool:
+    vmImage: 'ubuntu-latest'
+  dependsOn: BuildDocFiles
+  condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
+  environment: 'extension-docs-dev'
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: DownloadBuildArtifacts@0
+          inputs:
+            artifactName: 'build-docs'
+            buildType: 'current'
+            downloadType: 'single'
+            downloadPath: '$(System.ArtifactsDirectory)'
+        - task: UsePythonVersion@0
+          displayName: 'Use Python 3.7'
+          inputs:
+            versionSpec: 3.7
+        - task: Bash@3
+          inputs:
+            targetType: 'inline'
+            workingDirectory: '$(System.ArtifactsDirectory)/build-docs'
+            script: |
+              build_number=${BUILD_NUMBER//./}
+              export PACKAGE_BUILD=".${build_number}"
+              export VERSION="$(<version.txt)"
+              export PACKAGE_VERSION="${VERSION}${PACKAGE_BUILD}"
+              python -m pip install --upgrade pip
+              pip install -U Sphinx
+              pip install sphinx_rtd_theme
+              sphinx-build docs .
+          displayName: 'Build Docs'
+          env:
+            BUILD_NUMBER: $(BuildNumber)
+        - task: Bash@3
+          inputs:
+            targetType: 'inline'
+            workingDirectory: '$(System.ArtifactsDirectory)/build-docs'
+            script: |
+              ssh-keyscan github.com >> ~/.ssh/known_hosts
+          displayName: 'Add github host'
+        - task: InstallSSHKey@0
+          inputs:
+            knownHostsEntry: github.com
+            sshPublicKey: $(PublicKey)
+            sshKeySecureFile: id_rsa_github
+          displayName: 'Install SSH Key'
+        - task: Bash@3
+          inputs:
+            targetType: 'inline'
+            workingDirectory: '$(System.ArtifactsDirectory)/build-docs'
+            script: |
+              cat <<\EOT >~/.ssh/config
+              Host github.com-deploy
+                  HostName github.com
+                  User git
+                  IdentityFile ~/.ssh/id_rsa_github
+              EOT
+          displayName: 'Add github host config'
+        - task: Bash@3
+          inputs:
+            targetType: 'inline'
+            workingDirectory: '$(System.ArtifactsDirectory)/build-docs'
+            script: |
+              git config --global user.name "Azure Pipeline"
+              git config --global user.email "pipeline@azure.com"
+              git init
+              git checkout -b gh-pages
+              git add .
+              git commit -m "Build for $(BuildNumber) ***NO_CI***"
+              git remote add origin git@github.com-deploy:KlutzyBubbles/lego-micropython-extension.git
+              git push origin gh-pages --force
+          displayName: 'Push to remote'

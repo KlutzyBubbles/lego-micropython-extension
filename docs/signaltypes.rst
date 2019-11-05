@@ -86,7 +86,6 @@ distances.
 
 For example, the diameter of a wheel is measured in millimeters.
 
-
 .. _relativedistance:
 
 relative distance: %
@@ -101,9 +100,6 @@ For example, the distance value of the
 <.ev3devices_ext.InfraredSensorExt.wait_until_distance>`
 is a relative distance.
 
-
-
-
 .. _travelspeed:
 
 speed: mm/s
@@ -111,7 +107,6 @@ speed: mm/s
 Linear speeds are expressed as millimeters per second (mm/s).
 
 For example, the speed of a robotic vehicle is expressed in mm/s.
-
 
 .. _percentage:
 
@@ -123,6 +118,26 @@ maximum (100%). A specific type of percentages are
 
 For example, the sound :meth:`volume <.ev3brick_ext.sound.beep>` ranges from
 0% to 100%.
+
+A percentage when coding can be represented as a
+floating point from 0.0 to 1.0. It can also go to -1.0
+
+.. _percentagewhole:
+
+percentage whole: %
+-------------------
+This is the whole number representation of the percentage (100 for 100%)
+
+For example, the sound :meth:`volume <.ev3brick_ext.sound.beep>` ranges from
+0% to 100%.
+
+.. _rpm:
+
+RPM
+---
+RPM (Rotations per minute) is as the name suggests, the amount of Rotations
+something makes within 1 minute. For the extension library this is usually
+only used for setting a motors max speed.
 
 .. _frequency:
 

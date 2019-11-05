@@ -10,14 +10,14 @@ class ColorUtils():
         """Compares two colors to verify that they are equal
 
         Only one of the color parameters can be a set of Colors.
-        If both are sets of Colors, the color_b will be changed to None
+        If both are sets of Colors, ``color_b`` will be changed to ``None``
 
-        If an invalid color is provided (int, float) then None will be used
+        If an invalid color is provided then ``None`` will be used
 
-        :param color_a: Color a to use for comparison
-        :type color_a: Color, int, float, list, tuple, dict
-        :param color_b: Color b to use for comparison
-        :type color_b: Color, int, float, list, tuple, dict
+        :param color_a: :class:`~parameters.Color` a to use for comparison
+        :type color_a: :class:`~parameters.Color`, list, tuple, dict
+        :param color_b: :class:`~parameters.Color` b to use for comparison
+        :type color_b: :class:`~parameters.Color`, list, tuple, dict
         :return: Whether or not the colors are equal or the color set contains the alternate color
         :rtype: bool
         """
@@ -40,20 +40,21 @@ class ColorUtils():
     def to_number(color):
         """Converts a Color to its number representation.
 
-        Will return 0 (None) if the color is None or invalid
+        Will return 0 (``None``) if the color is ``None`` or invalid
 
-        None: 0
-        Color.BLACK: 1
-        Color.BLUE: 2
-        Color.GREEN: 3
-        Color.YELLOW: 4
-        Color.RED: 5
-        Color.WHITE: 6
-        Color.BROWN: 7
+        ``None: 0``
+        ``Color.BLACK: 1``
+        ``Color.BLUE: 2``
+        ``Color.GREEN: 3``
+        ``Color.YELLOW: 4``
+        ``Color.RED: 5``
+        ``Color.WHITE: 6``
+        ``Color.BROWN: 7``
 
-        :param color: Color to convert
-        :type color: Color
-        :return: Number representation for the Color
+        :param color: :class:`~parameters.Color` to convert
+        :type color: :class:`~parameters.Color`
+
+        :return: Number representation for the :class:`~parameters.Color`
         :rtype: int
         """
         if not isinstance(color, Color) or color is None:
@@ -73,23 +74,23 @@ class ColorUtils():
 
     @staticmethod
     def from_number(number):
-        """Converts a number to its Color representation.
+        """Converts a number to its :class:`~parameters.Color` representation.
 
-        Will return None if the number is 0 or invalid
+        Will return ``None`` if the number is 0 or invalid
 
-        None: 0
-        Color.BLACK: 1
-        Color.BLUE: 2
-        Color.GREEN: 3
-        Color.YELLOW: 4
-        Color.RED: 5
-        Color.WHITE: 6
-        Color.BROWN: 7
+        ``None: 0``
+        ``Color.BLACK: 1``
+        ``Color.BLUE: 2``
+        ``Color.GREEN: 3``
+        ``Color.YELLOW: 4``
+        ``Color.RED: 5``
+        ``Color.WHITE: 6``
+        ``Color.BROWN: 7``
 
         :param number: Number to convert
         :type number: int
-        :return: Color representation for the number
-        :rtype: Color
+        :return: :class:`~parameters.Color` representation for the number
+        :rtype: :class:`~parameters.Color`
         """
         if not isinstance(number, (int, float)) or number == 0:
             return None

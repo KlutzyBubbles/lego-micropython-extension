@@ -12,14 +12,14 @@ flashing_lock = None
 def light_pulse(color, short_pause=200, long_pause=800, on_pause=100):
     """Set the brick light to pulse a color
 
-    :param color: Color of the light
-    :type color: ColorExt
-    :param short_pause: Duration of the short pause, defaults to 200
-    :type short_pause: int, optional
-    :param long_pause: Duration of the long pause, defaults to 800
-    :type long_pause: int, optional
-    :param on_pause: Duration of the light flashing on, defaults to 100
-    :type on_pause: int, optional
+    :param color: :class:`~parameters.Color` of the light
+    :type color: :class:`~parameters.Color`
+    :param short_pause: Duration of the short pause (Default: ``200``)
+    :type short_pause: :ref:`time`
+    :param long_pause: Duration of the long pause (Default: ``800``)
+    :type long_pause: :ref:`time`
+    :param on_pause: Duration of the light flashing on (Default: ``100``)
+    :type on_pause: :ref:`time`
     """
     global flashing_lock
     if isinstance(flashing_lock, LightPulse):
@@ -34,12 +34,12 @@ def light_pulse(color, short_pause=200, long_pause=800, on_pause=100):
 def light_flash(color, off_pause=500, on_pause=500):
     """Set the brick light to flash a color
 
-    :param color: Color of the light
-    :type color: Color
-    :param off_pause: Duration of the off pause, defaults to 500
-    :type off_pause: int, optional
-    :param on_pause: Duration of the on puase, defaults to 500
-    :type on_pause: int, optional
+    :param color: :class:`~parameters.Color` of the light
+    :type color: :class:`~parameters.Color`
+    :param off_pause: Duration of the off pause (Default: ``500``)
+    :type off_pause: :ref:`time`
+    :param on_pause: Duration of the on puase (Default: ``500``)
+    :type on_pause: :ref:`time`
     """
     global flashing_lock
     if isinstance(flashing_lock, LightPulse):

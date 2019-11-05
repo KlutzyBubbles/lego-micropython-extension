@@ -8,10 +8,10 @@ class StopWatch(pybricks.tools.StopWatch):
     """
 
     def wait_until_time_passes(self, time):
-        """Waits until the time counter passes a specified value. If the StopWatch is paused, it will be resumed
+        """Waits until the time counter passes a specified value. If the ``StopWatch`` is paused, it will be resumed
 
         :param time: Time value to pass before continuing
-        :type time: int
+        :type time: :ref:`time`
         """
         super(StopWatch, self).resume()
         while super(StopWatch, self).time() < time:

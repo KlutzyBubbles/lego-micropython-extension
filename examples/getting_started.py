@@ -1,8 +1,8 @@
 #!/usr/bin/env pybricks-micropython
 
-from pybricks import ev3brick as brick
-from pybricks.ev3devices import Motor
-from pybricks.parameters import Port
+from pybricks_ext import ev3brick as brick
+from pybricks_ext.ev3devices import Motor
+from pybricks_ext.parameters import Port
 
 # Play a sound.
 brick.sound.beep()

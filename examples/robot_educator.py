@@ -1,10 +1,10 @@
 #!/usr/bin/env pybricks-micropython
 
-from pybricks import ev3brick as brick
-from pybricks.ev3devices import Motor, UltrasonicSensor
-from pybricks.parameters import Port
-from pybricks.tools import wait
-from pybricks.robotics import DriveBase
+from pybricks_ext import ev3brick as brick
+from pybricks_ext.ev3devices import Motor, UltrasonicSensor
+from pybricks_ext.parameters import Port
+from pybricks_ext.tools import wait
+from pybricks_ext.robotics import DriveBase
 
 # Play a sound.
 brick.sound.beep()
@@ -37,11 +37,8 @@ while True:
     # Begin driving forward at 200 millimeters per second.
     robot.drive(200, 0)
 
-    # Wait until an obstacle is detected. This is done by repeatedly
-    # doing nothing (waiting for 10 milliseconds) while the measured
-    # distance is still greater than 300 mm.
-    while obstacle_sensor.distance() > 300:
-        wait(10)
+    # Wait until an obstacle is within 300mm.
+    obstacle_sensor.wait_until_distance('>=', 300)
 
     # Drive backward at 100 millimeters per second. Keep going for 2 seconds.
     robot.drive_time(-100, 0, 2000)

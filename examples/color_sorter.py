@@ -1,9 +1,9 @@
 #!/usr/bin/env pybricks-micropython
 
-from pybricks import ev3brick as brick
-from pybricks.ev3devices import Motor, TouchSensor, ColorSensor
-from pybricks.parameters import Port, Button, Color, ImageFile, SoundFile
-from pybricks.tools import wait
+from pybricks_ext import ev3brick as brick
+from pybricks_ext.ev3devices import Motor, TouchSensor, ColorSensor
+from pybricks_ext.parameters import Port, Button, Color, ImageFile, SoundFile
+from pybricks_ext.tools import wait
 
 # The colored objects are either red, green, blue, or yellow.
 POSSIBLE_COLORS = (Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW)
@@ -36,8 +36,7 @@ while True:
     # reset to zero. This means that when it rotates backward to zero later
     # on, it returns to this starting position.
     belt_motor.run(-500)
-    while not touch_sensor.pressed():
-        pass
+    touch_sensor.wait_until_pressed()
     belt_motor.stop()
     wait(1000)
     belt_motor.reset_angle(0)
@@ -84,8 +83,7 @@ while True:
             # We don't want to register the same color once more if we're
             # still looking at the same object. So before we continue, we
             # wait until the sensor no longer sees the object.
-            while color_sensor.color() in POSSIBLE_COLORS:
-                pass
+            color_sensor.wait_until_color_is(POSSIBLE_COLORS)
             brick.sound.beep(2000, 100, 100)
 
             # Show an arrow pointing to the center button,

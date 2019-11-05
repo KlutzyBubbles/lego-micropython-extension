@@ -1,9 +1,9 @@
 #!/usr/bin/env pybricks-micropython
 
-from pybricks import ev3brick as brick
-from pybricks.ev3devices import Motor, TouchSensor, ColorSensor
-from pybricks.parameters import Port, Stop, Direction
-from pybricks.tools import wait
+from pybricks_ext import ev3brick as brick
+from pybricks_ext.ev3devices import Motor, TouchSensor, ColorSensor
+from pybricks_ext.parameters import Port, Stop, Direction
+from pybricks_ext.tools import wait
 
 # Configure the gripper motor on Port A with default settings.
 gripper_motor = Motor(Port.A)
@@ -41,8 +41,7 @@ elbow_sensor = ColorSensor(Port.S3)
 # in place so it does not move.
 elbow_motor.run_time(-30, 1000)
 elbow_motor.run(15)
-while elbow_sensor.reflection() < 32:
-    wait(10)
+elbow_sensor.wait_until_reflection('>=', 32)
 elbow_motor.reset_angle(0)
 elbow_motor.stop(Stop.HOLD)
 
@@ -50,8 +49,7 @@ elbow_motor.stop(Stop.HOLD)
 # in the base is pressed. Reset the motor angle to make this
 # the zero point. Then hold the motor in place so it does not move.
 base_motor.run(-60)
-while not base_switch.pressed():
-    wait(10)
+base_switch.wait_until_pressed()
 base_motor.reset_angle(0)
 base_motor.stop(Stop.HOLD)
 

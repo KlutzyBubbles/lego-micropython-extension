@@ -26,12 +26,13 @@ programs and start inventing your own programs.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Pybricks Modules
+   :caption: Pybricks Extension Modules
    :hidden:
 
    ev3brick
    ev3devices
    parameters
+   speedutil
    tools
 
 .. toctree::

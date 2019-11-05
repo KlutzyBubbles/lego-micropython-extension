@@ -12,13 +12,9 @@ class TestMotor:
 
     def test_init(self):
         motor = Motor(Port.A, direction=Direction.COUNTERCLOCKWISE, gears=5)
-        assert motor.port == Port.A
-        assert motor.direction == Direction.COUNTERCLOCKWISE
-        assert motor.gears == 5
+        motor = Motor(Port.A, direction=Direction.COUNTERCLOCKWISE)
+        motor = Motor(Port.A, gears=5)
         motor = Motor(Port.B)
-        assert motor.port == Port.B
-        assert motor.direction == Direction.CLOCKWISE
-        assert motor.gears == None
         with pytest.raises(Exception):
             motor = Motor()
 
@@ -142,7 +138,6 @@ class TestTouchSensor:
 
     def test_init(self, sensor):
         sensor = TouchSensor(Port.S1)
-        assert sensor.port == Port.S1
         with pytest.raises(Exception):
             sensor = TouchSensor()
 
@@ -160,7 +155,6 @@ class TestColorSensor:
 
     def test_init(self, sensor):
         sensor = ColorSensor(Port.S1)
-        assert sensor.port == Port.S1
         with pytest.raises(Exception):
             sensor = ColorSensor()
 
@@ -193,7 +187,6 @@ class TestInfraredSensor:
 
     def test_init(self, sensor):
         sensor = InfraredSensor(Port.S1)
-        assert sensor.port == Port.S1
         with pytest.raises(Exception):
             sensor = InfraredSensor()
 
@@ -221,7 +214,6 @@ class TestUltrasonicSensor:
 
     def test_init(self, sensor):
         sensor = UltrasonicSensor(Port.S1)
-        assert sensor.port == Port.S1
         with pytest.raises(Exception):
             sensor = UltrasonicSensor()
 
@@ -244,11 +236,7 @@ class TestGyroSensor:
 
     def test_init(self, sensor):
         sensor = GyroSensor(Port.S1)
-        assert sensor.port == Port.S1
-        assert sensor.direction == Direction.CLOCKWISE
         sensor = GyroSensor(Port.S2, direction=Direction.COUNTERCLOCKWISE)
-        assert sensor.port == Port.S2
-        assert sensor.direction == Direction.COUNTERCLOCKWISE
         with pytest.raises(Exception):
             sensor = GyroSensor()
 

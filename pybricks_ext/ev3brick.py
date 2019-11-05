@@ -6,6 +6,7 @@ from pybricks.tools import wait
 
 from pybricks.parameters import Color
 
+# Threading object for light flashing, only to be used internally
 flashing_lock = None
 
 def light_pulse(color, short_pause=200, long_pause=800, on_pause=100):
@@ -30,57 +31,6 @@ def light_pulse(color, short_pause=200, long_pause=800, on_pause=100):
         flashing_lock = LightPulse(color, short_pause, long_pause, on_pause)
         flashing_lock.start()
 
-class LightPulse(threading.Thread):
-
-    def __init__(self, color, short_pause, long_pause, on_pause):
-        super(LightPulse, self).__init__()
-        self.color = color
-        self.short_pause = short_pause
-        self.long_pause = long_pause
-        self.on_pause = on_pause
-        self.stop = False
-
-    def run(self):
-        while not self.stop:
-            brick.light(self.color)
-            wait(self.on_pause)
-            if self.stop:
-                return
-            brick.light(None)
-            wait(self.short_pause)
-            if self.stop:
-                return
-            brick.light(self.color)
-            wait(self.on_pause)
-            if self.stop:
-                return
-            brick.light(None)
-            wait(self.long_pause)
-
-    def kill(self):
-        self.stop = True
-
-class LightFlash(threading.Thread):
-
-    def __init__(self, color, off_pause, on_pause):
-        super().__init__()
-        self.color = color
-        self.off_pause = off_pause
-        self.on_pause = on_pause
-        self.stop = False
-
-    def run(self):
-        while not self.stop:
-            brick.light(self.color)
-            wait(self.on_pause)
-            if self.stop:
-                return
-            brick.light(None)
-            wait(self.off_pause)
-
-    def kill(self):
-        self.stop = True
-
 def light_flash(color, off_pause=500, on_pause=500):
     """Set the brick light to flash a color
 
@@ -98,17 +48,11 @@ def light_flash(color, off_pause=500, on_pause=500):
     flashing_lock = LightFlash(color, off_pause, on_pause)
     flashing_lock.start()
 
-def light(color):
-    global flashing_lock
-    if isinstance(flashing_lock, (LightPulse, LightFlash)):
-        flashing_lock.kill()
-        flashing_lock = None
-    brick.light(color)
-
-def buttons():
-    return brick.buttons()
-
 '''
+
+Commented out until source for the implementation is found as i am unable to reverse
+engineer the undocumented Speaker class.
+
 class Speaker(pybricks.ev3brick.sound):
     """
     Extension class for the Speaker Object
@@ -164,12 +108,74 @@ class Speaker(pybricks.ev3brick.sound):
 
 sound = Speaker()
 '''
+
+class LightPulse(threading.Thread):
+    """
+    This class should not be used directly.
+    """
+    def __init__(self, color, short_pause, long_pause, on_pause):
+        super(LightPulse, self).__init__()
+        self.color = color
+        self.short_pause = short_pause
+        self.long_pause = long_pause
+        self.on_pause = on_pause
+        self.stop = False
+
+    def run(self):
+        while not self.stop:
+            brick.light(self.color)
+            wait(self.on_pause)
+            if self.stop:
+                return
+            brick.light(None)
+            wait(self.short_pause)
+            if self.stop:
+                return
+            brick.light(self.color)
+            wait(self.on_pause)
+            if self.stop:
+                return
+            brick.light(None)
+            wait(self.long_pause)
+
+    def kill(self):
+        self.stop = True
+
+class LightFlash(threading.Thread):
+    """
+    This class should not be used directly.
+    """
+    def __init__(self, color, off_pause, on_pause):
+        super().__init__()
+        self.color = color
+        self.off_pause = off_pause
+        self.on_pause = on_pause
+        self.stop = False
+
+    def run(self):
+        while not self.stop:
+            brick.light(self.color)
+            wait(self.on_pause)
+            if self.stop:
+                return
+            brick.light(None)
+            wait(self.off_pause)
+
+    def kill(self):
+        self.stop = True
+
+# Passthrough functions and variables
+
 sound = brick.sound
 display = brick.display
 battery = brick.battery
 
+def light(color):
+    global flashing_lock
+    if isinstance(flashing_lock, (LightPulse, LightFlash)):
+        flashing_lock.kill()
+        flashing_lock = None
+    brick.light(color)
+
 def buttons():
     return brick.buttons()
-
-def light(color):
-    return brick.light(color)

@@ -1,9 +1,9 @@
 from operator import eq, ge, gt, le, lt, ne
 
 import pybricks.ev3devices as devices
-from pybricks.parameters import Stop, Direction
-from pybricks.tools import wait, StopWatch
 
+from pybricks_ext.parameters import Stop, Direction
+from pybricks_ext.tools import wait, StopWatch
 from pybricks_ext.parameters import ColorUtils
 from pybricks_ext.speed_util import get_ratio, speed_deg
 
@@ -61,7 +61,7 @@ class Motor(devices.Motor):
         """
         Initiate the Motor Object
         """
-        super().__init__()
+        super(devices.Motor, self).__init__()
         self.rpm = 240
         if isinstance(rpm, int):
             self.rpm = abs(rpm)
@@ -76,7 +76,7 @@ class Motor(devices.Motor):
         :return: Motor angle
         :rtype: :ref:`angle`
         """
-        return super(Motor, self).angle() * get_ratio(self.gears, depth=depth)
+        return super(devices.Motor, self).angle() * get_ratio(self.gears, depth=depth)
 
     def output_speed(self, depth=None):
         """
@@ -87,7 +87,7 @@ class Motor(devices.Motor):
         :return: Rotational speed in deg/s
         :rtype: :ref:`speed`
         """
-        return super(Motor, self).speed() * get_ratio(self.gears, depth=depth)
+        return super(devices.Motor, self).speed() * get_ratio(self.gears, depth=depth)
 
     def output_run(self, speed, depth=None):
         """
@@ -99,8 +99,8 @@ class Motor(devices.Motor):
         :type depth: int
         """
         if depth is None:
-            super(Motor, self).run(speed)
-        super(Motor, self).run(speed / get_ratio(self.gears, depth=depth))
+            super(devices.Motor, self).run(speed)
+        super(devices.Motor, self).run(speed / get_ratio(self.gears, depth=depth))
 
     def output_percent_run(self, speed, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage)
@@ -112,7 +112,7 @@ class Motor(devices.Motor):
         """
         if depth is None:
             self.percent_run(speed)
-        super(Motor, self).run(speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth))
+        super(devices.Motor, self).run(speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth))
 
     def percent_run(self, speed):
         """Keep the motor running at a constant speed (percentage)
@@ -120,7 +120,7 @@ class Motor(devices.Motor):
         :param speed: Speed of the Motor
         :type speed: :ref:`percentage`
         """
-        super(Motor, self).run(speed_deg(speed, rpm=self.rpm))
+        super(devices.Motor, self).run(speed_deg(speed, rpm=self.rpm))
 
     def output_run_time(self, speed, time, stop_type=Stop.COAST, wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed for a
@@ -138,8 +138,8 @@ class Motor(devices.Motor):
         :type depth: int
         """
         if depth is None:
-            super(Motor, self).run_time(speed, time, stop_type=stop_type, wait=wait)
-        super(Motor, self).run_time(speed / get_ratio(self.gears, depth=depth), time, stop_type=stop_type, wait=wait)
+            super(devices.Motor, self).run_time(speed, time, stop_type=stop_type, wait=wait)
+        super(devices.Motor, self).run_time(speed / get_ratio(self.gears, depth=depth), time, stop_type=stop_type, wait=wait)
 
     def output_percent_run_time(self, speed, time, stop_type=Stop.COAST, wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage)
@@ -158,7 +158,7 @@ class Motor(devices.Motor):
         """
         if depth is None:
             self.percent_run_time(speed, time, stop_type=stop_type, wait=wait)
-        super(Motor, self).run_time(speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth), time, stop_type=stop_type, wait=wait)
+        super(devices.Motor, self).run_time(speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth), time, stop_type=stop_type, wait=wait)
 
     def percent_run_time(self, speed, time, stop_type=Stop.COAST, wait=True):
         """Keep the motor running at a constant speed (percentage) for a speicified amount of time
@@ -172,7 +172,7 @@ class Motor(devices.Motor):
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
         :type wait: bool
         """
-        super(Motor, self).run_time(speed_deg(speed, rpm=self.rpm), time, stop_type=stop_type, wait=wait)
+        super(devices.Motor, self).run_time(speed_deg(speed, rpm=self.rpm), time, stop_type=stop_type, wait=wait)
 
     def output_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST, wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed for a
@@ -190,9 +190,9 @@ class Motor(devices.Motor):
         :type depth: int
         """
         if depth is None:
-            super(Motor, self).run_angle(speed, rotation_angle, stop_type=stop_type, wait=wait)
+            super(devices.Motor, self).run_angle(speed, rotation_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(Motor, self).run_angle(speed / ratio, rotation_angle / ratio, stop_type=stop_type, wait=wait)
+        super(devices.Motor, self).run_angle(speed / ratio, rotation_angle / ratio, stop_type=stop_type, wait=wait)
 
     def output_percent_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST,
                                  wait=True, depth=None):
@@ -213,7 +213,7 @@ class Motor(devices.Motor):
         if depth is None:
             self.percent_run_angle(speed, rotation_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(Motor, self).run_angle(speed_deg(speed, rpm=self.rpm) / ratio, rotation_angle / ratio, stop_type=stop_type, wait=wait)
+        super(devices.Motor, self).run_angle(speed_deg(speed, rpm=self.rpm) / ratio, rotation_angle / ratio, stop_type=stop_type, wait=wait)
 
     def percent_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST, wait=True):
         """Keep the motor running at a constant speed (percentage) for a
@@ -228,7 +228,7 @@ class Motor(devices.Motor):
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
         :type wait: bool
         """
-        super(Motor, self).run_angle(speed_deg(speed, rpm=self.rpm), rotation_angle, stop_type=stop_type, wait=wait)
+        super(devices.Motor, self).run_angle(speed_deg(speed, rpm=self.rpm), rotation_angle, stop_type=stop_type, wait=wait)
 
     def output_run_target(self, speed, target_angle, stop_type=Stop.COAST, wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed towards a
@@ -246,9 +246,9 @@ class Motor(devices.Motor):
         :type depth: int
         """
         if depth is None:
-            super(Motor, self).run_target(speed, target_angle, stop_type=stop_type, wait=wait)
+            super(devices.Motor, self).run_target(speed, target_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(Motor, self).run_target(speed / ratio, target_angle / ratio, stop_type=stop_type, wait=wait)
+        super(devices.Motor, self).run_target(speed / ratio, target_angle / ratio, stop_type=stop_type, wait=wait)
 
     def output_percent_run_target(self, speed, target_angle, stop_type=Stop.COAST,
                                   wait=True, depth=None):
@@ -269,7 +269,7 @@ class Motor(devices.Motor):
         if depth is None:
             self.percent_run_target(speed, target_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(Motor, self).run_target(speed_deg(speed, rpm=self.rpm) / ratio, target_angle / ratio, stop_type=stop_type, wait=wait)
+        super(devices.Motor, self).run_target(speed_deg(speed, rpm=self.rpm) / ratio, target_angle / ratio, stop_type=stop_type, wait=wait)
 
     def percent_run_target(self, speed, target_angle, stop_type=Stop.COAST, wait=True):
         """Keep the motor running at a constant speed (percentage) towards a
@@ -284,7 +284,7 @@ class Motor(devices.Motor):
         :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
         :type wait: bool
         """
-        super(Motor, self).run_target(speed_deg(speed, rpm=self.rpm), target_angle, stop_type=stop_type, wait=wait)
+        super(devices.Motor, self).run_target(speed_deg(speed, rpm=self.rpm), target_angle, stop_type=stop_type, wait=wait)
 
     def output_run_until_stalled(self, speed, stop_type=Stop.COAST, duty_limit=100, depth=None):
         """Keep the motor or linked gears running at a constant speed until it stalls
@@ -299,8 +299,8 @@ class Motor(devices.Motor):
         :type depth: int
         """
         if depth is None:
-            super(Motor, self).run_until_stalled(speed, stop_type=stop_type, duty_limit=duty_limit)
-        super(Motor, self).run_until_stalled(speed / get_ratio(self.gears, depth=depth), stop_type=stop_type, duty_limit=duty_limit)
+            super(devices.Motor, self).run_until_stalled(speed, stop_type=stop_type, duty_limit=duty_limit)
+        super(devices.Motor, self).run_until_stalled(speed / get_ratio(self.gears, depth=depth), stop_type=stop_type, duty_limit=duty_limit)
 
     def output_percent_run_until_stalled(self, speed, stop_type=Stop.COAST, duty_limit=100, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage) until it stalls
@@ -316,7 +316,7 @@ class Motor(devices.Motor):
         """
         if depth is None:
             self.percent_run_until_stalled(speed, stop_type=stop_type, duty_limit=duty_limit)
-        super(Motor, self).run_until_stalled(speed_deg(speed, rpm=self.rpm) * get_ratio(self.gears, depth=depth), stop_type=stop_type, duty_limit=duty_limit)
+        super(devices.Motor, self).run_until_stalled(speed_deg(speed, rpm=self.rpm) * get_ratio(self.gears, depth=depth), stop_type=stop_type, duty_limit=duty_limit)
 
     def percent_run_until_stalled(self, speed, stop_type=Stop.COAST, duty_limit=100):
         """Keep the motor running at a constant speed (percentage) until it stalls
@@ -328,13 +328,13 @@ class Motor(devices.Motor):
         :param duty_limit: Relative torque limit. This limit works just like :meth:`~ev3devices.Motor.set_dc_settings()`, but in this case the limit is temporary: it returns to its previous value after completing this command.
         :type duty_limit: :ref:`percentage`
         """
-        super(Motor, self).run_until_stalled(speed_deg(speed, rpm=self.rpm), stop_type=stop_type, duty_limit=duty_limit)
+        super(devices.Motor, self).run_until_stalled(speed_deg(speed, rpm=self.rpm), stop_type=stop_type, duty_limit=duty_limit)
 
     def wait_until_motor_stop(self):
         """
         Waits until the motor stops
         """
-        while super(Motor, self).speed() != 0:
+        while super(devices.Motor, self).speed() != 0:
             wait(10)
         return
 
@@ -342,7 +342,7 @@ class Motor(devices.Motor):
         """
         Waits until the motor starts
         """
-        while super(Motor, self).speed() == 0:
+        while super(devices.Motor, self).speed() == 0:
             wait(10)
         return
 
@@ -354,7 +354,7 @@ class Motor(devices.Motor):
         :param speed: Speed to calculate against (Motor.speed <OP> speed)
         :type speed: int, float
         """
-        while not _operator_calc(super(Motor, self).speed(), speed, operator):
+        while not _operator_calc(super(devices.Motor, self).speed(), speed, operator):
             wait(10)
         return
 
@@ -382,7 +382,7 @@ class TouchSensor(devices.TouchSensor):
         """
         Wait until the TouchSensor is pressed
         """
-        while not super(TouchSensor, self).pressed():
+        while not super(devices.TouchSensor, self).pressed():
             wait(10)
         return
 
@@ -390,7 +390,7 @@ class TouchSensor(devices.TouchSensor):
         """
         Wait until the TouchSensor is released
         """
-        while super(TouchSensor, self).pressed():
+        while super(devices.TouchSensor, self).pressed():
             wait(10)
         return
 
@@ -442,7 +442,7 @@ class ColorSensor(devices.ColorSensor):
         :return: Whether or not the color is equal or is contained
         :rtype: bool
         """
-        return Color.compare(color, super(ColorSensor, self).color())
+        return Color.compare(color, super(devices.ColorSensor, self).color())
 
     def wait_until_color_is(self, color):
         """Waits until the color equals a Color or a set of Colors
@@ -478,7 +478,7 @@ class ColorSensor(devices.ColorSensor):
         :param ambient: Ambient value to calculate against (ColorSensor.ambient <OP> ambient)
         :type ambient: int, float
         """
-        while not _operator_calc(super(ColorSensor, self).ambient(), ambient, operator):
+        while not _operator_calc(super(devices.ColorSensor, self).ambient(), ambient, operator):
             wait(10)
         return
 
@@ -490,7 +490,7 @@ class ColorSensor(devices.ColorSensor):
         :param reflection: Reflection value to calculate against (ColorSensor.reflection <OP> reflection)
         :type reflection: int, float
         """
-        while not _operator_calc(super(ColorSensor, self).reflection(), reflection, operator):
+        while not _operator_calc(super(devices.ColorSensor, self).reflection(), reflection, operator):
             wait(10)
         return
 
@@ -500,7 +500,7 @@ class ColorSensor(devices.ColorSensor):
         :return: Reflection for red, green, and blue light, each ranging from 0.0 (no reflection) to 255.0 (high reflection).
         :rtype: tuple
         """
-        rgb = super(ColorSensor, self).rgb()
+        rgb = super(devices.ColorSensor, self).rgb()
         base = 255 / 100
         return (base * rgb[0], base * rgb[1], base * rgb[2])
 
@@ -518,7 +518,7 @@ class ColorSensor(devices.ColorSensor):
         :return: Color measured in the form (h, s, v)
         :rtype: tuple
         """
-        rgb = super(ColorSensor, self).rgb()
+        rgb = super(devices.ColorSensor, self).rgb()
         r, g, b = rgb[0] / 100.0, rgb[1] / 100.0, rgb[2] / 100.0
         mx = max(r, g, b)
         mn = min(r, g, b)
@@ -572,7 +572,7 @@ class InfraredSensor(devices.InfraredSensor):
         :return: Relative distance (0 to 100) between remote and infrared sensor.
         :rtype: :ref:`relativedistance` or ``None`` if no remote is detected.
         """
-        return super(InfraredSensor, self).beacon(channel)[0]
+        return super(devices.InfraredSensor, self).beacon(channel)[0]
 
     def beacon_angle(self, channel):
         """Measure the relative angle to the remote and the infrared sensor
@@ -583,7 +583,7 @@ class InfraredSensor(devices.InfraredSensor):
         :return: Approximate relative angle (-75 to 75 degrees) between remote and infrared sensor.
         :rtype: :ref:`angle` or ``None`` if no remote is detected.
         """
-        return super(InfraredSensor, self).beacon(channel)[1]
+        return super(devices.InfraredSensor, self).beacon(channel)[1]
 
     def wait_until_distance(self, operator, distance):
         """Waits until the distance matches certain conditions
@@ -593,7 +593,7 @@ class InfraredSensor(devices.InfraredSensor):
         :param distance: Distance value to calculate against (InfraredSensor.distance <OP> distance)
         :type distance: :ref:`relativedistance`
         """
-        while not _operator_calc(super(InfraredSensor, self).distance(), distance, operator):
+        while not _operator_calc(super(devices.InfraredSensor, self).distance(), distance, operator):
             wait(10)
         return
 
@@ -635,13 +635,13 @@ class InfraredSensor(devices.InfraredSensor):
         """
         if isinstance(button, (list, tuple, dict)):
             while True:
-                buttons = super(InfraredSensor, self).buttons(channel)
+                buttons = super(devices.InfraredSensor, self).buttons(channel)
                 for one_button in button:
                     if one_button in buttons:
                         return
                 wait(10)
         else:
-            while button not in super(InfraredSensor, self).buttons(channel):
+            while button not in super(devices.InfraredSensor, self).buttons(channel):
                 wait(10)
         return
 
@@ -655,13 +655,13 @@ class InfraredSensor(devices.InfraredSensor):
         """
         if isinstance(button, (list, tuple, dict)):
             while True:
-                buttons = super(InfraredSensor, self).buttons(channel)
+                buttons = super(devices.InfraredSensor, self).buttons(channel)
                 for one_button in button:
                     if one_button not in buttons:
                         return
                 wait(10)
         else:
-            while button in super(InfraredSensor, self).buttons(channel):
+            while button in super(devices.InfraredSensor, self).buttons(channel):
                 wait(10)
         return
 
@@ -714,7 +714,7 @@ class UltrasonicSensor(devices.UltrasonicSensor):
         :param distance: Distance value to calculate against (UltrasonicSensor.distance <OP> distance)
         :type distance: :ref:`distance`
         """
-        while not _operator_calc(super(UltrasonicSensor, self).distance(), distance, operator):
+        while not _operator_calc(super(devices.UltrasonicSensor, self).distance(), distance, operator):
             wait(10)
         return
 
@@ -722,14 +722,14 @@ class UltrasonicSensor(devices.UltrasonicSensor):
         """
         Waits until the UltrasonicSensor detects the presence of another UltrasonicSensor
         """
-        while not super(UltrasonicSensor, self).presence():
+        while not super(devices.UltrasonicSensor, self).presence():
             wait(10)
 
     def wait_until_not_presence(self):
         """
         Waits until the UltrasonicSensor doesn't detect the presence of another UltrasonicSensor
         """
-        while super(UltrasonicSensor, self).presence():
+        while super(devices.UltrasonicSensor, self).presence():
             wait(10)
 
 class GyroSensor(devices.GyroSensor):
@@ -755,7 +755,7 @@ class GyroSensor(devices.GyroSensor):
         """
         Initiate the GyroSensor Object
         """
-        super(GyroSensor, self).__init__(port, direction)
+        super(devices.GyroSensor, self).__init__()
 
     def speed_rotations(self):
         """Gets the speed (angular velocity) of the sensor in rotations a second
@@ -763,7 +763,7 @@ class GyroSensor(devices.GyroSensor):
         :return: Sensor angular velocity in rotations a second
         :rtype: int, float
         """
-        return super(GyroSensor, self).speed() / 360
+        return super(devices.GyroSensor, self).speed() / 360
 
     def bearing(self):
         """Gets the current bearing of the sensor
@@ -771,7 +771,7 @@ class GyroSensor(devices.GyroSensor):
         :return: Current bearing of the sensor from 0 to 360
         :rtype: :ref:`angle`
         """
-        return super(GyroSensor, self).angle() % 360
+        return super(devices.GyroSensor, self).angle() % 360
 
     def angle_rotations(self):
         """Gets the accumulated angle of the sensor in rotations
@@ -779,7 +779,7 @@ class GyroSensor(devices.GyroSensor):
         :return: Rotation angle
         :rtype: int, float
         """
-        return super(GyroSensor, self).angle() / 360
+        return super(devices.GyroSensor, self).angle() / 360
 
     def reset_angle_bearing(self, angle):
         """Sets the rotation angle of the sensor to the bearing of an angle
@@ -787,7 +787,7 @@ class GyroSensor(devices.GyroSensor):
         :param angle: Value to which the beaing should be calculated from
         :type angle: :ref:`angle`
         """
-        super(GyroSensor, self).reset_angle(angle % 360)
+        super(devices.GyroSensor, self).reset_angle(angle % 360)
 
     def wait_until_speed(self, operator, speed):
         """Waits until the speed matches certain conditions
@@ -797,7 +797,7 @@ class GyroSensor(devices.GyroSensor):
         :param speed: Speed value to calculate against (GyroSensor.speed <OP> speed)
         :type speed: :ref:`speed`
         """
-        while not _operator_calc(super(GyroSensor, self).speed(), speed, operator):
+        while not _operator_calc(super(devices.GyroSensor, self).speed(), speed, operator):
             wait(10)
         return
 
@@ -809,7 +809,7 @@ class GyroSensor(devices.GyroSensor):
         :param angle: Angle value to calculate against (GyroSensor.angle <OP> angle)
         :type angle: :ref:`angle`
         """
-        while not _operator_calc(super(GyroSensor, self).angle(), angle, operator):
+        while not _operator_calc(super(devices.GyroSensor, self).angle(), angle, operator):
             wait(10)
         return
 

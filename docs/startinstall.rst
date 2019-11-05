@@ -19,7 +19,7 @@ To get started, you'll need:
 - A general knowledge of the original MicroPython methods as these extensions
     are modelled after them
 
-It is recommended to follow the installation guide found `HERE <https://klutzybubbles.github.io/lego-micropython-docs/startinstall.html>`_ before continuing.
+It is recommended to follow the installation guide found `HERE <https://klutzybubbles.github.io/lego-micropython-skeleton/startinstall.html>`_ before continuing.
 
 Connecting to your EV3 brick
 -----------------------------------------------------------
@@ -33,7 +33,7 @@ but as a refresher, here is how
 
 .. _fig_connecting:
 
-.. figure:: _images/connecting.png
+.. figure:: images/connecting.png
    :width: 100 %
    :alt: connecting
    :align: center
@@ -60,7 +60,9 @@ Do NOT install the skeleton to:
     - The bricks program folder
     - Any machine the brick can run code from
 
-Doing this will cause the brick methods to potentially be ovverriden and
-severly affect the bricks performance or general use
-:mod:`pip install [--user] --upgrade lego-mp-skeleton`
-with the [] meaning optional
+Doing this will cause the brick methods to potentially be overriden and
+severly affect the bricks performance or prevent any program from running on
+the brick.
+
+use :mod:`pip install [--user] --upgrade lego-mp-skeleton` to install the
+skeleton with the [] being optional

@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>speed_util – Speed Utilities &mdash; Lego Micropython Extension Docs</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tools – Timing and Datalogging" href="tools.html" />
+    <link rel="prev" title="parameters – Parameter and Constant Extensions" href="parameters.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Lego Micropython
+          
+
+          
+            
+            <img src="_static/lego-education-logo-small.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="startinstall.html">Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Pybricks Extension Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ev3brick.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ev3brick</span></code> – The EV3 Programmable Brick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ev3devices.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ev3devices</span></code> – EV3 Motor and Sensor Extension Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">parameters</span></code> – Parameter and Constant Extensions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">speed_util</span></code> – Speed Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#speed-functions">Speed Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#speed-converter-functions">Speed Converter Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#helper-functions">Helper Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tools</span></code> – Timing and Datalogging</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Engineering Essentials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="signaltypes.html">Signals and Units</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Demo Programs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/robot_educator.html">Robot Educator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/color_sorter.html">Color Sorter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/robot_arm_h25.html">Robot Arm H25</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contrib.html">Contibuting</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Lego Micropython</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">speed_util</span></code> – Speed Utilities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/speedutil.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-speed_util">
+<span id="speed-util-speed-utilities"></span><h1><a class="reference internal" href="#module-speed_util" title="speed_util"><code class="xref py py-mod docutils literal notranslate"><span class="pre">speed_util</span></code></a> – Speed Utilities<a class="headerlink" href="#module-speed_util" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="speed-functions">
+<h2>Speed Functions<a class="headerlink" href="#speed-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="speed_util.speed_mm">
+<code class="sig-prename descclassname">speed_util.</code><code class="sig-name descname">speed_mm</code><span class="sig-paren">(</span><em class="sig-param">percent</em>, <em class="sig-param">rpm=160</em>, <em class="sig-param">wheel_diam=56</em>, <em class="sig-param">min_percent=-100</em>, <em class="sig-param">max_percent=100</em><span class="sig-paren">)</span><a class="headerlink" href="#speed_util.speed_mm" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Translates speed in percentage to speed in mm/s to help with DriveBase methods.</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM
+Lego EV3 Wheels - 56 MM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>percent</strong> (<a class="reference internal" href="signaltypes.html#percentage"><span class="std std-ref">percentage: %</span></a>) – Speed to get (%)</p></li>
+<li><p><strong>rpm</strong> (<a class="reference internal" href="signaltypes.html#rpm"><span class="std std-ref">RPM</span></a>) – RPM of motor (Default: <code class="docutils literal notranslate"><span class="pre">160</span></code>)</p></li>
+<li><p><strong>wheel_diam</strong> (<a class="reference internal" href="signaltypes.html#dimension"><span class="std std-ref">dimension: mm</span></a>) – Diameter of wheels in mm (Default: <code class="docutils literal notranslate"><span class="pre">56</span></code>)</p></li>
+<li><p><strong>min_percent</strong> (<a class="reference internal" href="signaltypes.html#percentagewhole"><span class="std std-ref">percentage whole: %</span></a>) – Minimum precentage (Default: <code class="docutils literal notranslate"><span class="pre">-100</span></code>)</p></li>
+<li><p><strong>max_percent</strong> (<a class="reference internal" href="signaltypes.html#percentagewhole"><span class="std std-ref">percentage whole: %</span></a>) – Maximum percentage (Default: <code class="docutils literal notranslate"><span class="pre">100</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Speed in mm/s</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="signaltypes.html#travelspeed"><span class="std std-ref">speed: mm/s</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="speed_util.speed_deg">
+<code class="sig-prename descclassname">speed_util.</code><code class="sig-name descname">speed_deg</code><span class="sig-paren">(</span><em class="sig-param">percent</em>, <em class="sig-param">rpm=240</em>, <em class="sig-param">min_percent=-100</em>, <em class="sig-param">max_percent=100</em><span class="sig-paren">)</span><a class="headerlink" href="#speed_util.speed_deg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates speed in percentage to speed in deg/s to help with Motor run methods.</p>
+<p>Medium Motor    - 240 RPM
+Large Motor     - 160 RPM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>percent</strong> (<a class="reference internal" href="signaltypes.html#percentage"><span class="std std-ref">percentage: %</span></a>) – Speed to get (%)</p></li>
+<li><p><strong>rpm</strong> (<a class="reference internal" href="signaltypes.html#rpm"><span class="std std-ref">RPM</span></a>) – RPM of motor (Default: <code class="docutils literal notranslate"><span class="pre">240</span></code>)</p></li>
+<li><p><strong>min_percent</strong> (<a class="reference internal" href="signaltypes.html#percentagewhole"><span class="std std-ref">percentage whole: %</span></a>) – Minimum precentage (Default: <code class="docutils literal notranslate"><span class="pre">-100</span></code>)</p></li>
+<li><p><strong>max_percent</strong> (<a class="reference internal" href="signaltypes.html#percentagewhole"><span class="std std-ref">percentage whole: %</span></a>) – Maximum percentage (Default: <code class="docutils literal notranslate"><span class="pre">100</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Speed in deg/s</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="signaltypes.html#speed"><span class="std std-ref">rotational speed: deg/s</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="speed-converter-functions">
+<h2>Speed Converter Functions<a class="headerlink" href="#speed-converter-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="speed_util.speed_mm_deg">
+<code class="sig-prename descclassname">speed_util.</code><code class="sig-name descname">speed_mm_deg</code><span class="sig-paren">(</span><em class="sig-param">speed</em>, <em class="sig-param">wheel_diam=56</em><span class="sig-paren">)</span><a class="headerlink" href="#speed_util.speed_mm_deg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates speed in mm/s to speed in deg/s to help with Motor run methods</p>
+<p>Lego EV3 Wheels - 56 MM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<a class="reference internal" href="signaltypes.html#travelspeed"><span class="std std-ref">speed: mm/s</span></a>) – Speed to translate (mm/s)</p></li>
+<li><p><strong>wheel_diam</strong> (<a class="reference internal" href="signaltypes.html#dimension"><span class="std std-ref">dimension: mm</span></a>) – Diameter of wheels in mm (Default: <code class="docutils literal notranslate"><span class="pre">56</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Speed in deg/s</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="signaltypes.html#speed"><span class="std std-ref">rotational speed: deg/s</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="speed_util.speed_deg_mm">
+<code class="sig-prename descclassname">speed_util.</code><code class="sig-name descname">speed_deg_mm</code><span class="sig-paren">(</span><em class="sig-param">speed</em>, <em class="sig-param">wheel_diam=56</em><span class="sig-paren">)</span><a class="headerlink" href="#speed_util.speed_deg_mm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates speed in deg/s to speed in mm/s to help with Motor run methods</p>
+<p>Lego EV3 Wheels - 56 MM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<a class="reference internal" href="signaltypes.html#speed"><span class="std std-ref">rotational speed: deg/s</span></a>) – Speed to translate (deg/s)</p></li>
+<li><p><strong>wheel_diam</strong> (<a class="reference internal" href="signaltypes.html#dimension"><span class="std std-ref">dimension: mm</span></a>) – Diameter of wheels in mm (Default: <code class="docutils literal notranslate"><span class="pre">56</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Speed in mm/s</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="signaltypes.html#travelspeed"><span class="std std-ref">speed: mm/s</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="helper-functions">
+<h2>Helper Functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="speed_util.float_percent">
+<code class="sig-prename descclassname">speed_util.</code><code class="sig-name descname">float_percent</code><span class="sig-paren">(</span><em class="sig-param">percent</em>, <em class="sig-param">min_percent=-100</em>, <em class="sig-param">max_percent=100</em><span class="sig-paren">)</span><a class="headerlink" href="#speed_util.float_percent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a whole percentage (<code class="docutils literal notranslate"><span class="pre">100</span></code>, <code class="docutils literal notranslate"><span class="pre">50</span></code>) to a floating point percentage (<code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">0.5</span></code>).</p>
+<p>Adds validation to make sure that the percent is always between min and max.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>percent</strong> (<a class="reference internal" href="signaltypes.html#percentagewhole"><span class="std std-ref">percentage whole: %</span></a>) – The percentage to convert</p></li>
+<li><p><strong>min_percent</strong> (<a class="reference internal" href="signaltypes.html#percentagewhole"><span class="std std-ref">percentage whole: %</span></a>) – Minimum percentage to accept (Default: <code class="docutils literal notranslate"><span class="pre">-100</span></code>)</p></li>
+<li><p><strong>max_percent</strong> (<a class="reference internal" href="signaltypes.html#percentagewhole"><span class="std std-ref">percentage whole: %</span></a>) – Maximum percentage to accept (Default: <code class="docutils literal notranslate"><span class="pre">100</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The floating point percentage between the min and max</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="signaltypes.html#percentage"><span class="std std-ref">percentage: %</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="speed_util.get_ratio">
+<code class="sig-prename descclassname">speed_util.</code><code class="sig-name descname">get_ratio</code><span class="sig-paren">(</span><em class="sig-param">gears</em>, <em class="sig-param">depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#speed_util.get_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the ratio of a list or Tuple of gears.</p>
+<p>It is reccomended to use a Tuple as genrally gear ratios are not going to be changed dynamically.</p>
+<p>This method should NOT be used as a replacement for the inbuilt motor gear ratios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gears</strong> (<em>list</em><em>, </em><em>tuple</em>) – List of gears from input to output, gear trains can be used by nesting lists or tuples inside</p></li>
+<li><p><strong>depth</strong> (<em>int</em>) – Depth of train gears to get the ratio for, works like array pointers or you can set it to <code class="docutils literal notranslate"><span class="pre">None</span></code> to ignore it (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Gear ratio floating point</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tools.html" class="btn btn-neutral float-right" title="tools – Timing and Datalogging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="parameters.html" class="btn btn-neutral float-left" title="parameters – Parameter and Constant Extensions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

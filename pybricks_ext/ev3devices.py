@@ -24,24 +24,44 @@ class Motor(devices.Motor):
     Medium Motor    - 240 RPM
     Large Motor     - 160 RPM
 
-    Further documentation for the Motor class can be found
-    'https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.Motor'
+    LEGO® MINDSTORMS® EV3 Medium or Large Motor.
 
-    :param port: Port to which motor is connected
-    :type port: Port
-    :param direction: Direction of the positive motor speed, defaults to Direction.CLOCKWISE
-    :type direction: Direction, optional
-    :param gears: List of gears linked to the motor, defaults to None
-    :type gears: list, tuple, optional
-    :param rpm: RPM of the Motor, defaults to 240
-    :type rpm: int, optional
+    Element 99455/6148292 or 95658/6148278, contained in:
+
+    * 31313: LEGO® MINDSTORMS® EV3 (2013)
+    * 45544: LEGO® MINDSTORMS® Education EV3 Core Set (2013)
+    * 45503 or 45502: Separate part (2013)
+
+    Further documentation for the Motor class can be found
+    'https://klutzybubbles.github.io/lego-micropython-skeleton/ev3devices.html#ev3devices.Motor'
+
+    :param port: Port to which motor is connected.
+    :type port: :class:`~parameters.Port`
+    :param direction: Positive speed direction (Default: :attr:`~parameters.Direction.CLOCKWISE`).
+    :type direction: :class:`~parameters.Direction`
+    :param gears: List of gears linked to the motor (Default: ``None``).
+
+    For example: ``[12, 36]`` represents a gear train with a 12-tooth and a 36-tooth gear. See ratio for illustrated examples.
+
+    Use a list of lists for multiple gear trains, such as ``[[12, 36], [20, 16, 40]]``.
+
+    When you specify a gear train, all motor commands and settings are automatically adjusted to account for the resulting gear ratio. The motor direction remains unchanged, no matter how many gears you choose.
+
+    For example, with ``gears=[12, 36]``, the gear ratio is 3, which means that the output is mechanically slowed down by a factor of 3. To compensate, the motor will automatically turn 3 times as fast and 3 times as far when you give a motor command. So when you choose ``run_angle(200, 90)``, your mechanism output simply turns at 200 deg/s for 90 degrees.
+
+    The same holds for the documentation below: When it states “motor angle” or “motor speed”, you can read this as “mechanism output angle” and “mechanism output speed”, and so on, as the gear ratio is automatically accounted for.
+
+    The ``gears`` setting is only available for motors with rotation sensors.
+    :type gears: list
+    :param rpm: RPM of the Motor (Default: ``240``)
+    :type rpm: int
     """
     
     def __init__(self, port, direction=Direction.CLOCKWISE, gears=None, rpm=240):
         """
-        Initiate the MotorExt Object
+        Initiate the Motor Object
         """
-        super().__init__(port, direction=direction, gears=gears)
+        super().__init__()
         self.rpm = 240
         if isinstance(rpm, int):
             self.rpm = abs(rpm)
@@ -50,11 +70,11 @@ class Motor(devices.Motor):
         """
         Get the rotation angle of the motor or its linked gears
 
-        :param depth: Depth of the gear in the link to get the angle for, defaults to None
-        :type depth: int, optional
+        :param depth: Depth of the gear in the link to get the angle for (Default: ``None``)
+        :type depth: int
 
         :return: Motor angle
-        :rttype: int, float
+        :rtype: :ref:`angle`
         """
         return super(Motor, self).angle() * get_ratio(self.gears, depth=depth)
 
@@ -62,10 +82,10 @@ class Motor(devices.Motor):
         """
         Gets the speed (angular velocity) of the motor or its linked gears
 
-        :param depth: Depth of the gear in the link to get the angle for, defaults to None
-        :type depth: int, optional
+        :param depth: Depth of the gear in the link to get the angle for (Default: ``None``)
+        :type depth: int
         :return: Rotational speed in deg/s
-        :rtype: int, float
+        :rtype: :ref:`speed`
         """
         return super(Motor, self).speed() * get_ratio(self.gears, depth=depth)
 
@@ -74,9 +94,9 @@ class Motor(devices.Motor):
         Keep the motor or linked gears running at a constant speed (angular velocity)
 
         :param speed: Speed of the Motor or Gear
-        :type speed: int, float
-        :param depth: Depth of the gear in the link to set the speed for, defaults to None
-        :type depth: int, optional
+        :type speed: :ref:`speed`
+        :param depth: Depth of the gear in the link to set the speed for (Default: ``None``)
+        :type depth: int
         """
         if depth is None:
             super(Motor, self).run(speed)
@@ -86,9 +106,9 @@ class Motor(devices.Motor):
         """Keep the motor or linked gears running at a constant speed (percentage)
 
         :param speed: Speed of the Motor or Gear
-        :type speed: int, float
-        :param depth: Depth of the gear in the link to set the speed for, defaults to None
-        :type depth: int, optional
+        :type speed: :ref:`percentage`
+        :param depth: Depth of the gear in the link to set the speed for (Default: ``None``)
+        :type depth: int
         """
         if depth is None:
             self.percent_run(speed)
@@ -98,7 +118,7 @@ class Motor(devices.Motor):
         """Keep the motor running at a constant speed (percentage)
 
         :param speed: Speed of the Motor
-        :type speed: int, float
+        :type speed: :ref:`percentage`
         """
         super(Motor, self).run(speed_deg(speed, rpm=self.rpm))
 
@@ -107,155 +127,128 @@ class Motor(devices.Motor):
         specified amount of time
 
         :param speed: Speed of the Motor or Gear
-        :type speed: int, float
+        :type speed: :ref:`speed`
         :param time: Duration (milliseconds) of the maneuver
-        :type time: int
-        :param stop_type: Whether to coast, brake or hold after coming to a stand still,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-                     the program, defaults to True
-        :type wait: bool, optional
-        :param depth: Depth of the gear in the link to set the speed for, defaults to None
-        :type depth: int, optional
+        :type time: :ref:`time`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
+        :type wait: bool
+        :param depth: Depth of the gear in the link to set the speed for (Default: ``None``)
+        :type depth: int
         """
         if depth is None:
             super(Motor, self).run_time(speed, time, stop_type=stop_type, wait=wait)
-        super(Motor, self).run_time(speed / get_ratio(self.gears, depth=depth),
-                                       time,
-                                       stop_type=stop_type,
-                                       wait=wait)
+        super(Motor, self).run_time(speed / get_ratio(self.gears, depth=depth), time, stop_type=stop_type, wait=wait)
 
     def output_percent_run_time(self, speed, time, stop_type=Stop.COAST, wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage)
         for a specified amount of time
 
         :param speed: Speed of the Motor or Gear (percentage)
-        :type speed: int, float
+        :type speed: :ref:`percentage`
         :param time: Duration (milliseconds) of the maneuver
-        :type time: int
-        :param stop_type: Whether to coast, brake or hold after coming to a standstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-                     the program, defaults to True
-        :type wait: bool, optional
-        :param depth: Depth of the gear in the link to set the speed for, defaults to None
-        :type depth: int, optional
+        :type time: :ref:`time`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
+        :type wait: bool
+        :param depth: Depth of the gear in the link to set the speed for (Default: ``None``)
+        :type depth: int
         """
         if depth is None:
             self.percent_run_time(speed, time, stop_type=stop_type, wait=wait)
-        super(Motor, self).run_time(
-            speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth),
-            time, stop_type=stop_type, wait=wait)
+        super(Motor, self).run_time(speed_deg(speed, rpm=self.rpm) / get_ratio(self.gears, depth=depth), time, stop_type=stop_type, wait=wait)
 
     def percent_run_time(self, speed, time, stop_type=Stop.COAST, wait=True):
         """Keep the motor running at a constant speed (percentage) for a speicified amount of time
 
         :param speed: Speed of the Motor or Gear (percentage)
-        :type speed: int, float
+        :type speed: :ref:`percentage`
         :param time: Duration (milliseconds) of the maneuver
-        :type time: int
-        :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-                     the program, defaults to True
-        :type wait: bool, optional
+        :type time: :ref:`time`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
+        :type wait: bool
         """
-        super(Motor, self).run_time(speed_deg(speed, rpm=self.rpm),
-                                       time, stop_type=stop_type, wait=wait)
+        super(Motor, self).run_time(speed_deg(speed, rpm=self.rpm), time, stop_type=stop_type, wait=wait)
 
     def output_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST, wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed for a
         speicified amount of degrees
 
         :param speed: Speed of the Motor or Gear
-        :type speed: int, float
+        :type speed: :ref:`speed`
         :param rotation_angle: Angle (degrees) by which the Motor should run
-        :type rotation_angle: int
-        :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-                     the program, defaults to True
-        :type wait: bool, optional
-        :param depth: Depth of the gear in the link to set the speed for, defaults to None
-        :type depth: int, optional
+        :type rotation_angle: :ref:`angle`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
+        :type wait: bool
+        :param depth: Depth of the gear in the link to set the speed for (Default: ``None``)
+        :type depth: int
         """
         if depth is None:
             super(Motor, self).run_angle(speed, rotation_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(Motor, self).run_angle(speed / ratio,
-                                        rotation_angle / ratio,
-                                        stop_type=stop_type,
-                                        wait=wait)
+        super(Motor, self).run_angle(speed / ratio, rotation_angle / ratio, stop_type=stop_type, wait=wait)
 
     def output_percent_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST,
                                  wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage) for a
         speicified amount of degrees
 
-        :param speed: Speed of the Motor or Gear
-        :type speed: int, float
+        :param speed: Speed of the Motor or Gear (percentage)
+        :type speed: :ref:`percentage`
         :param rotation_angle: Angle (degrees) by which the Motor should run
-        :type rotation_angle: int
-        :param stop_type: Whether to coast, brake, or hold after coming to a tandstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-                     the program, defaults to True
-        :type wait: bool, optional
-        :param depth: Depth of the gear in the link to set the speed for, defaults to None
-        :type depth: int, optional
+        :type rotation_angle: :ref:`angle`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
+        :type wait: bool
+        :param depth: Depth of the gear in the link to set the speed for (Default: ``None``)
+        :type depth: int
         """
         if depth is None:
             self.percent_run_angle(speed, rotation_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(Motor, self).run_angle(speed_deg(speed, rpm=self.rpm) / ratio,
-                                     rotation_angle / ratio, stop_type=stop_type, wait=wait)
+        super(Motor, self).run_angle(speed_deg(speed, rpm=self.rpm) / ratio, rotation_angle / ratio, stop_type=stop_type, wait=wait)
 
     def percent_run_angle(self, speed, rotation_angle, stop_type=Stop.COAST, wait=True):
         """Keep the motor running at a constant speed (percentage) for a
         speicified amount of degrees
 
-        :param speed: Speed of the Motor or Gear
-        :type speed: int, float
+        :param speed: Speed of the Motor or Gear (percentage)
+        :type speed: :ref:`percentage`
         :param rotation_angle: Angle (degrees) by which the Motor should run
-        :type rotation_angle: int
-        :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-                     the program, defaults to True
-        :type wait: bool, optional
+        :type rotation_angle: :ref:`angle`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
+        :type wait: bool
         """
-        super(Motor, self).run_angle(speed_deg(speed, rpm=self.rpm),
-                                        rotation_angle, stop_type=stop_type, wait=wait)
+        super(Motor, self).run_angle(speed_deg(speed, rpm=self.rpm), rotation_angle, stop_type=stop_type, wait=wait)
 
     def output_run_target(self, speed, target_angle, stop_type=Stop.COAST, wait=True, depth=None):
         """Keep the motor or linked gears running at a constant speed towards a
         speicified target degree
 
         :param speed: Speed of the Motor or Gear
-        :type speed: int, float
-        :param target_angle: Target angle that the Motor should rotate to,
-                             regardless of its current angle
-        :type target_angle: int
-        :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-                     the program, defaults to True
-        :type wait: bool, optional
-        :param depth: Depth of the gear in the link to set the speed for, defaults to None
-        :type depth: int, optional
+        :type speed: :ref:`speed`
+        :param target_angle: Target angle that the Motor should rotate to, regardless of its current angle
+        :type target_angle: :ref:`angle`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
+        :type wait: bool
+        :param depth: Depth of the gear in the link to set the speed for (Default: ``None``)
+        :type depth: int
         """
         if depth is None:
             super(Motor, self).run_target(speed, target_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(Motor, self).run_target(speed / ratio, target_angle / ratio,
-                                         stop_type=stop_type, wait=wait)
+        super(Motor, self).run_target(speed / ratio, target_angle / ratio, stop_type=stop_type, wait=wait)
 
     def output_percent_run_target(self, speed, target_angle, stop_type=Stop.COAST,
                                   wait=True, depth=None):
@@ -263,97 +256,79 @@ class Motor(devices.Motor):
         speicified target degree
 
         :param speed: Speed of the Motor or Gear (percentage)
-        :type speed: int, float
-        :param target_angle: Target angle that the Motor should rotate to,
-                             regardless of its current angle
-        :type target_angle: int
-        :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-                     the program, defaults to True
-        :type wait: bool, optional
-        :param depth: Depth of the gear in the link to set the speed for, defaults to None
-        :type depth: int, optional
+        :type speed: :ref:`percentage`
+        :param target_angle: Target angle that the Motor should rotate to, regardless of its current angle
+        :type target_angle: :ref:`angle`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
+        :type wait: bool
+        :param depth: Depth of the gear in the link to set the speed for (Default: ``None``)
+        :type depth: int
         """
         if depth is None:
             self.percent_run_target(speed, target_angle, stop_type=stop_type, wait=wait)
         ratio = get_ratio(self.gears, depth=depth)
-        super(Motor, self).run_target(speed_deg(speed, rpm=self.rpm) / ratio,
-                                         target_angle / ratio, stop_type=stop_type, wait=wait)
+        super(Motor, self).run_target(speed_deg(speed, rpm=self.rpm) / ratio, target_angle / ratio, stop_type=stop_type, wait=wait)
 
     def percent_run_target(self, speed, target_angle, stop_type=Stop.COAST, wait=True):
         """Keep the motor running at a constant speed (percentage) towards a
         speicified target degree
 
         :param speed: Speed of the Motor or Gear (percentage)
-        :type speed: int, float
-        :param target_angle: Target angle that the Motor should rotate to,
-                             regardless of its current angle
-        :type target_angle: int
-        :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of
-                     the program, defaults to True
-        :type wait: bool, optional
+        :type speed: :ref:`percentage`
+        :param target_angle: Target angle that the Motor should rotate to, regardless of its current angle
+        :type target_angle: :ref:`angle`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param wait: Whether to wait for the maneuver to complete before continuing with the rest of the program (Default: ``True``)
+        :type wait: bool
         """
-        super(Motor, self).run_target(speed_deg(speed, rpm=self.rpm), target_angle,
-                                         stop_type=stop_type, wait=wait)
+        super(Motor, self).run_target(speed_deg(speed, rpm=self.rpm), target_angle, stop_type=stop_type, wait=wait)
 
     def output_run_until_stalled(self, speed, stop_type=Stop.COAST, duty_limit=100, depth=None):
         """Keep the motor or linked gears running at a constant speed until it stalls
 
         :param speed: Speed of the Motor or Gear
-        :type speed: int, float
-        :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param duty_limit: Relative torque limit, defaults to 100
-        :type duty_limit: int, optional
-        :param depth: Depth of the gear in the link to set the speed for, defaults to None
-        :type depth: int, optional
+        :type speed: :ref:`speed`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param duty_limit: Relative torque limit. This limit works just like :meth:`~ev3devices.Motor.set_dc_settings()`, but in this case the limit is temporary: it returns to its previous value after completing this command.
+        :type duty_limit: :ref:`percentage`
+        :param depth: Depth of the gear in the link to set the speed for (Default: ``None``)
+        :type depth: int
         """
         if depth is None:
-            super(Motor, self).run_until_stalled(speed, stop_type=stop_type,
-                                                    duty_limit=duty_limit)
-        super(Motor, self).run_until_stalled(speed / get_ratio(self.gears, depth=depth),
-                                                stop_type=stop_type, duty_limit=duty_limit)
+            super(Motor, self).run_until_stalled(speed, stop_type=stop_type, duty_limit=duty_limit)
+        super(Motor, self).run_until_stalled(speed / get_ratio(self.gears, depth=depth), stop_type=stop_type, duty_limit=duty_limit)
 
-    def output_percent_run_until_stalled(self, speed, stop_type=Stop.COAST,
-                                         duty_limit=100, depth=None):
+    def output_percent_run_until_stalled(self, speed, stop_type=Stop.COAST, duty_limit=100, depth=None):
         """Keep the motor or linked gears running at a constant speed (percentage) until it stalls
 
         :param speed: Speed of the Motor or Gear (percentage)
-        :type speed: int, float
-        :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param duty_limit: Relative torque limit, defaults to 100
-        :type duty_limit: int, optional
-        :param depth: Depth of the gear in the link to set the speed for, defaults to None
-        :type depth: int, optional
+        :type speed: :ref:`percentage`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param duty_limit: Relative torque limit. This limit works just like :meth:`~ev3devices.Motor.set_dc_settings()`, but in this case the limit is temporary: it returns to its previous value after completing this command.
+        :type duty_limit: :ref:`percentage`
+        :param depth: Depth of the gear in the link to set the speed for (Default: ``None``)
+        :type depth: int
         """
         if depth is None:
-            self.percent_run_until_stalled(speed, stop_type=stop_type,
-                                           duty_limit=duty_limit)
-        super(Motor, self).run_until_stalled(
-            speed_deg(speed, rpm=self.rpm) * get_ratio(self.gears, depth=depth),
-            stop_type=stop_type, duty_limit=duty_limit)
+            self.percent_run_until_stalled(speed, stop_type=stop_type, duty_limit=duty_limit)
+        super(Motor, self).run_until_stalled(speed_deg(speed, rpm=self.rpm) * get_ratio(self.gears, depth=depth), stop_type=stop_type, duty_limit=duty_limit)
 
     def percent_run_until_stalled(self, speed, stop_type=Stop.COAST, duty_limit=100):
         """Keep the motor running at a constant speed (percentage) until it stalls
 
         :param speed: Speed of the Motor or Gear (percentage)
-        :type speed: int, float
-        :param stop_type: Whether to coast, brake, or hold after coming to a standstill,
-                          defaults to Stop.COAST
-        :type stop_type: Stop, optional
-        :param duty_limit: Relative torque limit, defaults to 100
-        :type duty_limit: int, optional
+        :type speed: :ref:`percentage`
+        :param stop_type: Whether to coast, brake, or hold after coming to a standstill (Default: :attr:`~parameters.Stop.COAST`).
+        :type stop_type: :class:`~parameters.Stop`
+        :param duty_limit: Relative torque limit. This limit works just like :meth:`~ev3devices.Motor.set_dc_settings()`, but in this case the limit is temporary: it returns to its previous value after completing this command.
+        :type duty_limit: :ref:`percentage`
         """
-        super(Motor, self).run_until_stalled(speed_deg(speed, rpm=self.rpm),
-                                                stop_type=stop_type, duty_limit=duty_limit)
+        super(Motor, self).run_until_stalled(speed_deg(speed, rpm=self.rpm), stop_type=stop_type, duty_limit=duty_limit)
 
     def wait_until_motor_stop(self):
         """
@@ -388,11 +363,19 @@ class TouchSensor(devices.TouchSensor):
     Extension class for the TouchSensor with helpful
     methods mainly relating to wait functions
 
-    Further documentation for the TouchSensor class can be found
-    'https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.TouchSensor'
+    LEGO® MINDSTORMS® EV3 Touch Sensor.
 
-    :param port: Port to which the sensor is connected
-    :type port: Port
+    Element 95648/6138404, contained in:
+
+    * 31313: LEGO® MINDSTORMS® EV3 (2013)
+    * 45544: LEGO® MINDSTORMS® Education EV3 Core Set (2013)
+    * 45507: Separate part (2013)
+
+    Further documentation for the TouchSensor class can be found
+    'https://klutzybubbles.github.io/lego-micropython-skeleton/ev3devices.html#ev3devices.TouchSensor'
+
+    :param port: Port to which the sensor is connected.
+    :type port: :class:`~parameters.Port`
     """
 
     def wait_until_pressed(self):
@@ -414,9 +397,8 @@ class TouchSensor(devices.TouchSensor):
     def wait_until_bumped(self, wait_timer=500):
         """Wait until the TouchSensor is bumped
 
-        :param wait_timer: Time to wait (milliseconds) to consider a press and release a bump,
-                           defaults to 500
-        :type wait_timer: int, float, optional
+        :param wait_timer: Time to wait (milliseconds) to consider a press and release a bump (Default: ``500``)
+        :type wait_timer: :ref:`time`
         """
         if not isinstance(wait_timer, (int, float)):
             return
@@ -434,21 +416,29 @@ class TouchSensor(devices.TouchSensor):
 class ColorSensor(devices.ColorSensor):
     """Extension class for the ColorSensor with helpful methods
 
-    Further documentation for the ColorSensor class can be found
-    'https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.ColorSensor'
+    LEGO® MINDSTORMS® EV3 Color Sensor.
 
-    :param port: Port to which the sensor is connected
-    :type port: Port
+    Element 95650/6128869, contained in:
+
+    * 31313: LEGO® MINDSTORMS® EV3 (2013)
+    * 45544: LEGO® MINDSTORMS® Education EV3 Core Set (2013)
+    * 45506: Separate part (2013)
+
+    Further documentation for the ColorSensor class can be found
+    'https://klutzybubbles.github.io/lego-micropython-skeleton/ev3devices.html#ev3devices.ColorSensor'
+
+    :param port: Port to which the sensor is connected.
+    :type port: :class:`~parameters.Port`
     """
 
     def equals(self, color):
         """Checks whether the color equals a Color or a set of Colors
 
-        See ColorExt for color values
-        list, tuple or dict must have values of instance Color
+        See :class:`~parameters.Color` for color values.
+        list, tuple or dict must have values of instance :class:`~parameters.Color`.
 
         :param color: Color to compare sensor color to
-        :type color: Color, int, float, list, tuple, dict
+        :type color: :class:`~parameters.Color`, list, tuple, dict
         :return: Whether or not the color is equal or is contained
         :rtype: bool
         """
@@ -457,11 +447,11 @@ class ColorSensor(devices.ColorSensor):
     def wait_until_color_is(self, color):
         """Waits until the color equals a Color or a set of Colors
 
-        See ColorExt for color values
-        list, tuple or dict must have values of instance Color
+        See :class:`~parameters.Color` for color values.
+        list, tuple or dict must have values of instance :class:`~parameters.Color`.
 
         :param color: Color to compare sensor color to
-        :type color: Color, int, float, list, tuple, dict
+        :type color: :class:`~parameters.Color`, list, tuple, dict
         """
         while not self.equals(color):
             wait(10)
@@ -470,11 +460,11 @@ class ColorSensor(devices.ColorSensor):
     def wait_until_color_not(self, color):
         """Waits until the color does not equal a Color or a set of Colors
 
-        See ColorExt for color values
-        list, tuple or dict must have values of instance Color
+        See :class:`~parameters.Color` for color values.
+        list, tuple or dict must have values of instance :class:`~parameters.Color`
 
         :param color: Color to compare sensor color to
-        :type color: Color, int, float, list, tuple, dict
+        :type color: :class:`~parameters.Color`, list, tuple, dict
         """
         while self.equals(color):
             wait(10)
@@ -497,8 +487,7 @@ class ColorSensor(devices.ColorSensor):
 
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
-        :param reflection: Reflection value to calculate against
-                           (ColorSensor.reflection <OP> reflection)
+        :param reflection: Reflection value to calculate against (ColorSensor.reflection <OP> reflection)
         :type reflection: int, float
         """
         while not _operator_calc(super(ColorSensor, self).reflection(), reflection, operator):
@@ -508,8 +497,7 @@ class ColorSensor(devices.ColorSensor):
     def rgb_255(self):
         """Measure the reflection of a surface using a red, green, and then a blue light.
 
-        :return: Reflection for red, green, and blue light, each ranging from
-                 0.0 (no reflection) to 255.0 (high reflection).
+        :return: Reflection for red, green, and blue light, each ranging from 0.0 (no reflection) to 255.0 (high reflection).
         :rtype: tuple
         """
         rgb = super(ColorSensor, self).rgb()
@@ -519,7 +507,7 @@ class ColorSensor(devices.ColorSensor):
     def hex(self):
         """Measure the color of a surface in the form of a hex string
 
-        :return: Color measured in hex value
+        :return: Color measured in hex value (Without the '#')
         :rtype: str
         """
         return '%02x%02x%02x' & self.rgb_255()
@@ -561,11 +549,18 @@ class ColorSensor(devices.ColorSensor):
 class InfraredSensor(devices.InfraredSensor):
     """Extension class for the InfraredSensor with helpful methods
 
-    Further documentation for the InfraredSensor class can be found
-    'http://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.InfraredSensor'
+    LEGO® MINDSTORMS® EV3 Infrared Sensor and Beacon.
 
-    :param port: Port to which the sensor is connected
-    :type port: Port
+    Element 95654/6132629 and 72156/6127283, contained in:
+
+    * 31313: LEGO® MINDSTORMS® EV3 (2013)
+    * 45509 and 45508: Separate parts (2013)
+
+    Further documentation for the InfraredSensor class can be found
+    'http://klutzybubbles.github.io/lego-micropython-skeleton/ev3devices.html#ev3devices.InfraredSensor'
+
+    :param port: Port to which the sensor is connected.
+    :type port: :class:`~parameters.Port`
     """
 
     def beacon_distance(self, channel):
@@ -573,8 +568,9 @@ class InfraredSensor(devices.InfraredSensor):
 
         :param channel: Channel number of the remote
         :type channel: int
-        :return: Relative distance between the remote and the infrared sensor
-        :rtype: int, float
+
+        :return: Relative distance (0 to 100) between remote and infrared sensor.
+        :rtype: :ref:`relativedistance` or ``None`` if no remote is detected.
         """
         return super(InfraredSensor, self).beacon(channel)[0]
 
@@ -583,8 +579,9 @@ class InfraredSensor(devices.InfraredSensor):
 
         :param channel: Channel number of the remote
         :type channel: int
-        :return: Relative angle to the remote and the infrared sensor
-        :rtype: int
+
+        :return: Approximate relative angle (-75 to 75 degrees) between remote and infrared sensor.
+        :rtype: :ref:`angle` or ``None`` if no remote is detected.
         """
         return super(InfraredSensor, self).beacon(channel)[1]
 
@@ -594,7 +591,7 @@ class InfraredSensor(devices.InfraredSensor):
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
         :param distance: Distance value to calculate against (InfraredSensor.distance <OP> distance)
-        :type distance: int, float
+        :type distance: :ref:`relativedistance`
         """
         while not _operator_calc(super(InfraredSensor, self).distance(), distance, operator):
             wait(10)
@@ -605,9 +602,8 @@ class InfraredSensor(devices.InfraredSensor):
 
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
-        :param beacon_distance: Beacon distance value to calculate against
-                                (InfraredSensorExt.beacon_distance <OP> beacon_distance)
-        :type beacon_distance: int, float
+        :param beacon_distance: Beacon distance value to calculate against (InfraredSensor.beacon_distance <OP> beacon_distance)
+        :type beacon_distance: :ref:`relativedistance`
         :param channel: Channel number of the remote
         :type channel: int
         """
@@ -620,9 +616,8 @@ class InfraredSensor(devices.InfraredSensor):
 
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
-        :param beacon_angle: Beacon angle value to calculate against
-                             (InfraredSensorExt.beacon_angle <OP> beacon_angle)
-        :type beacon_angle: int, float
+        :param beacon_angle: Beacon angle value to calculate against (InfraredSensor.beacon_angle <OP> beacon_angle)
+        :type beacon_angle: :ref:`angle`
         :param channel: Channel number of the remote
         :type channel: int
         """
@@ -634,7 +629,7 @@ class InfraredSensor(devices.InfraredSensor):
         """Waits until a specified button has been pressed
 
         :param button: Button or Buttons to wait for
-        :type button: Button, list, tuple, dict
+        :type button: :class:`~parameters.Button`, list, tuple, dict
         :param channel: Channel number of the remote
         :type channel: int
         """
@@ -654,7 +649,7 @@ class InfraredSensor(devices.InfraredSensor):
         """Waits until a specified button has been released
 
         :param button: Button or Buttons to wait for
-        :type button: Button, list, tuple, dict
+        :type button: :class:`~parameters.Button`, list, tuple, dict
         :param channel: Channel number of the remote
         :type channel: int
         """
@@ -674,10 +669,10 @@ class InfraredSensor(devices.InfraredSensor):
         """Waits until a specified button has been bumped
 
         ''NOTE: using a list, tuple or dict for buttons will make this function act the same as
-        wait_until_button_pressed if all of the buttons listed are pressed at once''
+        wait_until_button_pressed unless all of the buttons listed are pressed at once''
 
         :param button: Button or Buttons to wait for
-        :type button: Button, list, tuple, dict
+        :type button: :class:`~parameters.Button`, list, tuple, dict
         :param channel: Channel number of the remote
         :type channel: int
         """
@@ -697,11 +692,18 @@ class InfraredSensor(devices.InfraredSensor):
 class UltrasonicSensor(devices.UltrasonicSensor):
     """Extension class for the UltrasonicSensor with helpful methods
 
-    Further documentation for the UltrasonicSensor class can be found
-    'klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.UltrasonicSensor'
+    LEGO® MINDSTORMS® EV3 Ultrasonic Sensor.
 
-    :param port: Port to which the sensor is connected
-    :type port: Port
+    Element 95652/6138403, contained in:
+
+    * 45544: LEGO® MINDSTORMS® Education EV3 Core Set (2013)
+    * 45504: Separate part (2013)
+
+    Further documentation for the UltrasonicSensor class can be found
+    'klutzybubbles.github.io/lego-micropython-skeleton/ev3devices.html#ev3devices.UltrasonicSensor'
+
+    :param port: Port to which the sensor is connected.
+    :type port: :class:`~parameters.Port`
     """
 
     def wait_until_distance(self, operator, distance):
@@ -709,9 +711,8 @@ class UltrasonicSensor(devices.UltrasonicSensor):
 
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
-        :param distance: Distance value to calculate against
-                         (UltrasonicSensor.distance <OP> distance)
-        :type distance: int, float
+        :param distance: Distance value to calculate against (UltrasonicSensor.distance <OP> distance)
+        :type distance: :ref:`distance`
         """
         while not _operator_calc(super(UltrasonicSensor, self).distance(), distance, operator):
             wait(10)
@@ -734,8 +735,15 @@ class UltrasonicSensor(devices.UltrasonicSensor):
 class GyroSensor(devices.GyroSensor):
     """Extension class for the GyroSensor with helpful methods
 
+    LEGO® MINDSTORMS® EV3 Gyro Sensor.
+
+    Element 99380/6138411, contained in:
+
+    * 45544: LEGO® MINDSTORMS® Education EV3 Core Set (2013)
+    * 45505: Separate part (2013)
+
     Further documentation for the GyroSensor class can be found
-    'https://klutzybubbles.github.io/lego-micropython-docs/ev3devices.html#ev3devices.GyroSensor'
+    'https://klutzybubbles.github.io/lego-micropython-skeleton/ev3devices.html#ev3devices.GyroSensor'
 
     :param port: Port to which the sensor is connected
     :type port: Port
@@ -745,7 +753,7 @@ class GyroSensor(devices.GyroSensor):
 
     def __init__(self, port, direction=Direction.CLOCKWISE):
         """
-        Initiate the GyroSensorExt Object
+        Initiate the GyroSensor Object
         """
         super(GyroSensor, self).__init__(port, direction)
 
@@ -761,7 +769,7 @@ class GyroSensor(devices.GyroSensor):
         """Gets the current bearing of the sensor
 
         :return: Current bearing of the sensor from 0 to 360
-        :rtype: int
+        :rtype: :ref:`angle`
         """
         return super(GyroSensor, self).angle() % 360
 
@@ -777,7 +785,7 @@ class GyroSensor(devices.GyroSensor):
         """Sets the rotation angle of the sensor to the bearing of an angle
 
         :param angle: Value to which the beaing should be calculated from
-        :type angle: int
+        :type angle: :ref:`angle`
         """
         super(GyroSensor, self).reset_angle(angle % 360)
 
@@ -787,7 +795,7 @@ class GyroSensor(devices.GyroSensor):
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
         :param speed: Speed value to calculate against (GyroSensor.speed <OP> speed)
-        :type speed: int, float
+        :type speed: :ref:`speed`
         """
         while not _operator_calc(super(GyroSensor, self).speed(), speed, operator):
             wait(10)
@@ -799,7 +807,7 @@ class GyroSensor(devices.GyroSensor):
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
         :param angle: Angle value to calculate against (GyroSensor.angle <OP> angle)
-        :type angle: int, float
+        :type angle: :ref:`angle`
         """
         while not _operator_calc(super(GyroSensor, self).angle(), angle, operator):
             wait(10)
@@ -810,8 +818,7 @@ class GyroSensor(devices.GyroSensor):
 
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
-        :param speed: Speed rotations value to calculate against
-                      (GyroSensorExt.speed_rotations <OP> speed)
+        :param speed: Speed rotations value to calculate against (GyroSensorExt.speed_rotations <OP> speed)
         :type speed: int, float
         """
         while not _operator_calc(self.speed_rotations(), speed, operator):
@@ -823,8 +830,7 @@ class GyroSensor(devices.GyroSensor):
 
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
-        :param angle: Angle rotations value to calculate against
-                      (GyroSensorExt.angle_rotations <OP> angle)
+        :param angle: Angle rotations value to calculate against (GyroSensorExt.angle_rotations <OP> angle)
         :type angle: int, float
         """
         while not _operator_calc(self.angle_rotations(), angle, operator):
@@ -837,7 +843,7 @@ class GyroSensor(devices.GyroSensor):
         :param operator: Operator to be used for the calculation (>, <, <=, >=, ==, !=)
         :type operator: str
         :param bearing: Bearing value to calculate against (GyroSensorExt.bearing <OP> bearing)
-        :type bearing: int, float
+        :type bearing: :ref:`angle`
         """
         while not _operator_calc(self.bearing(), bearing, operator):
             wait(10)
